@@ -1,0 +1,77 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Inter ExtraBold,104,&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,1,0,1,9,4,2,60,60,610,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.04,0:00:00.53,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}WHAT IF ALL
+Dialogue: 0,0:00:00.53,0:00:01.16,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}OF EARTH'S {\c&H3AD8FF&}WATER{\c&HFFFFFF&}
+Dialogue: 0,0:00:01.16,0:00:01.98,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}TELEPORTED{\c&HFFFFFF&} INTO THE
+Dialogue: 0,0:00:01.98,0:00:02.55,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}SKY?{\c&HFFFFFF&}
+Dialogue: 0,0:00:02.55,0:00:03.53,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}10{\c&HFFFFFF&} {\c&H3AD8FF&}KILOMETERS{\c&HFFFFFF&} UP,
+Dialogue: 0,0:00:03.53,0:00:04.19,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THE WHOLE PLANET
+Dialogue: 0,0:00:04.19,0:00:04.79,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}GOES {\c&H3AD8FF&}DARK{\c&HFFFFFF&} AT
+Dialogue: 0,0:00:04.79,0:00:05.36,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}NOON.{\c&HFFFFFF&}
+Dialogue: 0,0:00:05.36,0:00:06.15,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}EVERY OCEAN,
+Dialogue: 0,0:00:06.15,0:00:06.78,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}LAKE AND RIVER
+Dialogue: 0,0:00:06.78,0:00:07.46,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}IS NOW FLOATING
+Dialogue: 0,0:00:07.46,0:00:08.20,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}ABOVE YOUR HEAD,
+Dialogue: 0,0:00:08.20,0:00:09.74,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}2.5{\c&HFFFFFF&} {\c&H3AD8FF&}KILOMETERS{\c&HFFFFFF&} {\c&H3AD8FF&}THICK.{\c&HFFFFFF&}
+Dialogue: 0,0:00:09.74,0:00:10.25,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}NORMALLY,
+Dialogue: 0,0:00:10.25,0:00:10.95,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THE {\c&H3AD8FF&}SKY{\c&HFFFFFF&} HOLDS
+Dialogue: 0,0:00:10.95,0:00:11.58,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}ABOUT AN {\c&H3AD8FF&}INCH{\c&HFFFFFF&}
+Dialogue: 0,0:00:11.58,0:00:12.17,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}OF RAIN.
+Dialogue: 0,0:00:12.17,0:00:12.85,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}NOW IT'S HOLDING
+Dialogue: 0,0:00:12.85,0:00:13.52,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THE {\c&H3AD8FF&}PACIFIC.{\c&HFFFFFF&}
+Dialogue: 0,0:00:13.52,0:00:14.16,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}FISH{\c&HFFFFFF&} SWIM OVER
+Dialogue: 0,0:00:14.16,0:00:14.76,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}YOUR {\c&H3AD8FF&}HOUSE.{\c&HFFFFFF&}
+Dialogue: 0,0:00:14.76,0:00:15.36,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}AND PLANES AT
+Dialogue: 0,0:00:15.36,0:00:16.36,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}CRUISING ALTITUDE?
+Dialogue: 0,0:00:16.36,0:00:17.04,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THEY'RE {\c&H3AD8FF&}SUBMARINES{\c&HFFFFFF&}
+Dialogue: 0,0:00:17.04,0:00:17.56,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}NOW.
+Dialogue: 0,0:00:17.56,0:00:17.97,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}BUT WAIT.
+Dialogue: 0,0:00:17.97,0:00:18.51,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}WHY{\c&HFFFFFF&} CAN'T THE
+Dialogue: 0,0:00:18.51,0:00:19.26,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}SKY{\c&HFFFFFF&} JUST HOLD
+Dialogue: 0,0:00:19.26,0:00:19.66,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}IT?
+Dialogue: 0,0:00:19.66,0:00:20.11,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}YOU SEE,
+Dialogue: 0,0:00:20.11,0:00:20.85,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THAT {\c&H3AD8FF&}WATER{\c&HFFFFFF&} WEIGHS
+Dialogue: 0,0:00:20.85,0:00:22.43,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}OVER {\c&H3AD8FF&}250{\c&HFFFFFF&} TIMES
+Dialogue: 0,0:00:22.43,0:00:23.15,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}MORE THAN ALL
+Dialogue: 0,0:00:23.15,0:00:23.58,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THE {\c&H3AD8FF&}AIR{\c&HFFFFFF&} ON
+Dialogue: 0,0:00:23.58,0:00:24.00,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}EARTH.
+Dialogue: 0,0:00:24.00,0:00:24.74,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}IT'S LIKE BALANCING
+Dialogue: 0,0:00:24.74,0:00:25.40,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}A {\c&H3AD8FF&}BATHTUB{\c&HFFFFFF&} ON
+Dialogue: 0,0:00:25.40,0:00:26.31,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}A {\c&H3AD8FF&}PAPER{\c&HFFFFFF&} {\c&H3AD8FF&}TOWEL.{\c&HFFFFFF&}
+Dialogue: 0,0:00:26.31,0:00:27.14,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}SO IT {\c&H3AD8FF&}FALLS.{\c&HFFFFFF&}
+Dialogue: 0,0:00:27.14,0:00:28.14,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}FOR ABOUT {\c&H3AD8FF&}45{\c&HFFFFFF&}
+Dialogue: 0,0:00:28.14,0:00:28.75,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}SECONDS,
+Dialogue: 0,0:00:28.75,0:00:29.64,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}IT RAINS {\c&H3AD8FF&}FISH,{\c&HFFFFFF&}
+Dialogue: 0,0:00:29.64,0:00:30.15,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}WHALES,{\c&HFFFFFF&}
+Dialogue: 0,0:00:30.15,0:00:30.89,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}AND {\c&H3AD8FF&}SHIPS.{\c&HFFFFFF&}
+Dialogue: 0,0:00:30.89,0:00:31.38,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THEN IT {\c&H3AD8FF&}HITS{\c&HFFFFFF&}
+Dialogue: 0,0:00:31.38,0:00:32.40,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}EVERYWHERE{\c&HFFFFFF&} AT ONCE.
+Dialogue: 0,0:00:32.40,0:00:33.05,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THE TALLEST WAVE
+Dialogue: 0,0:00:33.05,0:00:33.90,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}EVER RECORDED WAS
+Dialogue: 0,0:00:33.90,0:00:35.78,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}524{\c&HFFFFFF&} METERS.
+Dialogue: 0,0:00:35.78,0:00:36.56,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THESE ARE {\c&H3AD8FF&}KILOMETERS{\c&HFFFFFF&}
+Dialogue: 0,0:00:36.56,0:00:37.07,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}TALL.
+Dialogue: 0,0:00:37.07,0:00:37.55,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}AND ALL THAT
+Dialogue: 0,0:00:37.55,0:00:38.34,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}FALLING TURNS INTO
+Dialogue: 0,0:00:38.34,0:00:38.60,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}HEAT,{\c&HFFFFFF&}
+Dialogue: 0,0:00:38.60,0:00:39.30,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}SO THE OCEANS
+Dialogue: 0,0:00:39.30,0:00:40.12,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}LAND ABOUT {\c&H3AD8FF&}20{\c&HFFFFFF&}
+Dialogue: 0,0:00:40.12,0:00:41.06,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}DEGREES {\c&H3AD8FF&}WARMER.{\c&HFFFFFF&}
+Dialogue: 0,0:00:41.06,0:00:41.54,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}LUCKILY,{\c&HFFFFFF&}
+Dialogue: 0,0:00:41.54,0:00:42.28,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}IT ALL DRAINS
+Dialogue: 0,0:00:42.28,0:00:42.82,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}BACK INTO THE
+Dialogue: 0,0:00:42.82,0:00:43.50,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}OCEANS.
+Dialogue: 0,0:00:43.50,0:00:44.29,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}UNLUCKILY,{\c&HFFFFFF&}
+Dialogue: 0,0:00:44.29,0:00:44.82,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}SO DOES YOUR
+Dialogue: 0,0:00:44.82,0:00:45.60,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}HOUSE.{\c&HFFFFFF&}

@@ -9,7 +9,7 @@ src, dst = sys.argv[1], sys.argv[2]
 T = json.load(open(src))
 
 # spoken number phrases -> digits (matched on the lower-cased words)
-NUM = [(['two', 'and', 'a', 'half'], '2.5'), (['two', 'hundred', 'and', 'fifty'], '250'), (['five', 'hundred', 'and', 'twenty', 'four'], '524'),
+NUM = [(['two', 'and', 'a', 'half'], '2.5'), (['two', 'hundred', 'and', 'fifty'], '250'), (['two', 'hundred', 'fifty'], '250'), (['five', 'hundred', 'and', 'twenty', 'four'], '524'),
        (['forty', 'five'], '45'), (['twelve', 'oh', 'four', 'pm'], '12:04 PM'), (['ten'], '10'), (['twenty'], '20')]
 KEYWORDS = {'25', 'teleports', 'drop', 'ocean', 'whale', 'plane', 'submarine', 'heavier', 'roof', 'drains', 'gone', 'everything', 'teleported', 'sky', 'dark', 'noon', 'thick', 'inch', 'pacific', 'house', 'submarines', 'why', '250', 'air',
             'bathtub', 'paper', 'towel', 'falls', 'fish', 'whales', 'ships', 'hits', 'everywhere', '524', 'kilometers',

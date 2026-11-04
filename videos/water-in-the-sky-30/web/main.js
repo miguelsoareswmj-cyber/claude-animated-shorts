@@ -21,15 +21,15 @@ export const END = Math.ceil(fr(TIM.duration)) + 14; // room for the signature w
 const B = {
   A: 0, B: ls('s1') - 3, C: ls('s3') - 3, D: ls('s3') - 3, E: ls('s4') - 3, F: ls('s4') - 3, G: ls('y1') - 3,
   H: ls('y1') - 3, I: ls('f1') - 3, J: ls('f1') - 3, J2: ls('f2') - 2, K: ls('i1') - 3, L: ls('i2') - 3, L2: ls('i2') - 3,
-  M: ls('l1') - 3, M2: ls('l1') - 3, N: ls('l1') - 3, N2: ls('l2') - 2, Z: END,
+  M: ls('l2') - 3, M2: ls('l2') - 3, N: ls('l2') - 3, N2: ls('l2') - 3, Z: END,
 };
 const KEY = {
   teleport: wf('h1', 11) - 2, dark: wf('h3', 2) - 2, floating: wf('s2', 2) - 2, thick: wf('s2', 2) + 16,
-  inch: 0, pacific: wf('s3', 1) - 2, house: 0, sub: wf('s4', 8) - 2, why: 0,
-  twoHundred: wf('y2', 1) - 2, air: wf('y2', 9), bathtub: 0, towel: 0,
+  inch: 0, pacific: wf('s3', 1) - 2, house: 0, sub: wf('s4', 5) - 2, why: 0,
+  twoHundred: wf('y2', 1) - 2, air: wf('y2', 7), bathtub: 0, towel: 0,
   falls: wf('f1', 2) - 2, fish: wf('f2', 0) - 2, whales: wf('f2', 1) - 2, ships: wf('f2', 2) - 2,
   hits: wf('i1', 1) - 2, five: 0, km: wf('i2', 3) - 2, heat: 0, warmer: 0,
-  drains: wf('l1', 4) - 2, unluck: ls('l2') - 2, yourHouse: wf('l3', 5) - 2,
+  drains: 0, unluck: ls('l2') - 2, yourHouse: wf('l3', 5) - 2,
 };
 window.KEY = KEY; window.B = B; window.T = T;
 

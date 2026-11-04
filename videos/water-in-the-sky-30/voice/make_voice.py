@@ -11,7 +11,7 @@ SR = 48000; LEAD = 0.07
 out = [np.zeros(int(LEAD * SR))]; t = LEAD; tim = []
 for lid, text, gap in lines:
     wav = f'{HERE}/tmp_{lid}.wav'
-    subprocess.run([PIPER, '-m', MODEL, '--length-scale', str(LS), '--noise-scale', '0.6', '--noise-w-scale', '0.7', '-f', wav],
+    subprocess.run([PIPER, '-m', MODEL, '--length-scale', str(LS), '--noise-scale', '0.72', '--noise-w-scale', '0.8', '-f', wav],
                    input=text.encode(), check=True, capture_output=True)
     with wave.open(wav) as w: sr = w.getframerate(); x = np.frombuffer(w.readframes(w.getnframes()), np.int16) / 32768.0
     x = signal.resample_poly(x, 320, 147)
@@ -34,9 +34,14 @@ for lid, text, gap in lines:
     out += [x, np.zeros(int(gap * SR))]; t += len(x) / SR + gap
     os.remove(wav)
 v = np.concatenate(out + [np.zeros(int(0.25 * SR))])
+# match the reference narrator: ~+2 semitones, a touch brighter (measured: F0 125 Hz vs 99 Hz, more 1-4 kHz)
+SHIFT = float(os.environ.get('VOICE_SHIFT', '2.0'))
+if SHIFT:
+    import librosa
+    v = librosa.effects.pitch_shift(v.astype(np.float32), sr=SR, n_steps=SHIFT, res_type='soxr_hq').astype(float)
 # voice chain: highpass, gentle presence, compress
 v = signal.sosfilt(signal.butter(2, 85, 'high', fs=SR, output='sos'), v)
-pres = signal.sosfilt(signal.butter(2, [2500, 6000], 'band', fs=SR, output='sos'), v); v = v + 0.25 * pres
+pres = signal.sosfilt(signal.butter(2, [1800, 5000], 'band', fs=SR, output='sos'), v); v = v + 0.45 * pres
 env = signal.sosfilt(signal.butter(1, 12, 'low', fs=SR, output='sos'), np.abs(v)) + 1e-6
 g = np.minimum(1, (env / 0.12) ** -0.5); v = v * g
 v *= 0.89 / np.max(np.abs(v))

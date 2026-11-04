@@ -184,7 +184,7 @@ def roar(dur, r, lo=80, hi=1400):
 
 # signature: sting at 0, swoosh-pop on every place change
 fx(STING, 0.0, 0.9)
-for sid in ['B', 'D', 'F', 'H', 'J', 'K', 'L2', 'N']:
+for sid in ['B', 'E', 'F', 'G', 'H', 'J', 'K', 'L2', 'N']:
     fx(wd(SWOOSH, R), SH[sid][0] - 0.17, 0.55)
 # 1 teleport
 fx(wd(whoosh(0.7, R, peak=0.12, f_lo=200, f_hi=4000, tail=0.3), R), K['teleport'] - 0.1, 0.7)
@@ -193,13 +193,14 @@ for i in range(6): fx(glock(m2f(86 + i * 2), 0.6, rng(70 + i), dur=0.7), K['tele
 # 2 dark at noon: low "dun" + lights-off clunk
 fx(thud(R, 45, 1.2), K['dark'], 0.9); fx(hp(clang(R), 800) * 0.4, K['dark'] + 0.02, 0.25, -0.3)
 # under-ocean ambience under all under-shots
-for a, b in [SH['B'], SH['D'], SH['J']]:
+for a, b in [SH['B'], SH['E'], SH['G'], SH['J']]:
     wb = water_bed(b - a + 0.3, R, close=0.4); wb = lp(wb, 900); fx(wb, a, 0.16)
     fx(bubbles(b - a, R, 4, f_lo=200, f_hi=900), a, 0.12, -0.2)
 fx(thud(R, 38, 1.5), K['thick'] + 0.1, 0.75); fx(wd(whoosh(1.0, R, peak=0.25, f_lo=150, f_hi=900, tail=0.5), R), K['thick'] - 0.05, 0.5)
 # 3 rain gauge
 # 4 whale, fish, plane
-fx(whale_call(R), K['pacific'] - 0.2, 0.55, 0.1)
+fx(bubbles(1.0, R, 25, f_lo=500, f_hi=2000), K['house'], 0.4, 0.2)
+fx(slide(500, 900, 0.35), K['why'], 0.22, 0.2)
 a, b = SH['F']; n = ns(b - a); eng = lp(np.sin(phase(np.full(n, 62.0))) + 0.5 * np.sign(np.sin(phase(np.full(n, 62.0)))), 300) * 0.25
 fx(eng + lp(water_bed(b - a, R, close=0.8), 1200) * 0.5, a, 0.35); fx(bubbles(b - a, R, 18), a, 0.3, 0.3)
 fx(wd(convolve_st(sonar(R), make_ir(1.6, 4)), R)[0] * 0.5 + sonar(R), K['sub'], 0.35)

@@ -17,19 +17,19 @@ const ls = (id) => fr(LN[id].start), le = (id) => fr(LN[id].end);
 export const END = Math.ceil(fr(TIM.duration)) + 14; // room for the signature wah-wah
 
 // ---------- shot boundaries ----------
-// 30 s cut: shots C, E, G, I, L, M, M2 are zero-length (skipped)
+// 30 s cut on the user's own voice-over: shots C, D, I, L, M, M2 are zero-length (skipped)
 const B = {
-  A: 0, B: ls('s1') - 3, C: ls('s3') - 3, D: ls('s3') - 3, E: ls('s4') - 3, F: ls('s4') - 3, G: ls('y1') - 3,
-  H: ls('y1') - 3, I: ls('f1') - 3, J: ls('f1') - 3, J2: ls('f2') - 2, K: ls('i1') - 3, L: ls('i2') - 3, L2: ls('i2') - 3,
-  M: ls('l2') - 3, M2: ls('l2') - 3, N: ls('l2') - 3, N2: ls('l2') - 3, Z: END,
+  A: 0, B: ls('s1') - 3, C: ls('e3') - 3, D: ls('e3') - 3, E: ls('e3') - 3, F: ls('e5') - 3, G: ls('q1') - 3,
+  H: ls('y1') - 3, I: ls('f1') - 3, J: ls('f1') - 3, J2: ls('f2') - 2, K: ls('i1') - 3, L: wf('i1', 6) - 2, L2: wf('i1', 6) - 2,
+  M: ls('l1') - 3, M2: ls('l1') - 3, N: ls('l1') - 3, N2: ls('l2') - 2, Z: END,
 };
 const KEY = {
-  teleport: wf('h1', 11) - 2, dark: wf('h3', 2) - 2, floating: wf('s2', 2) - 2, thick: wf('s2', 2) + 16,
-  inch: 0, pacific: wf('s3', 1) - 2, house: 0, sub: wf('s4', 5) - 2, why: 0,
-  twoHundred: wf('y2', 1) - 2, air: wf('y2', 7), bathtub: 0, towel: 0,
-  falls: wf('f1', 2) - 2, fish: wf('f2', 0) - 2, whales: wf('f2', 1) - 2, ships: wf('f2', 2) - 2,
-  hits: wf('i1', 1) - 2, five: 0, km: wf('i2', 3) - 2, heat: 0, warmer: 0,
-  drains: 0, unluck: ls('l2') - 2, yourHouse: wf('l3', 5) - 2,
+  teleport: wf('h1', 6) - 2, dark: wf('h2', 2) - 2, floating: wf('s1', 6) - 2, thick: wf('s1', 11) - 2,
+  inch: 0, pacific: 0, house: wf('e3', 3) - 2, sub: wf('e5', 2) - 2, why: wf('q1', 3) - 2,
+  twoHundred: wf('y1', 3) - 2, air: wf('y1', 9), bathtub: 0, towel: 0,
+  falls: wf('f1', 2) - 2, fish: wf('f2', 5) - 2, whales: wf('f2', 6) - 2, ships: wf('f2', 8) - 2,
+  hits: wf('i1', 2) - 2, five: 0, km: wf('i1', 10) - 2, heat: 0, warmer: 0,
+  drains: wf('l1', 3) - 2, unluck: ls('l2') - 2, yourHouse: wf('l3', 3) - 2,
 };
 window.KEY = KEY; window.B = B; window.T = T;
 
@@ -215,7 +215,7 @@ const SHOTS = [
 const shotAt = (f) => SHOTS.find((s) => f >= s.a && f < s.b) || SHOTS[SHOTS.length - 1];
 
 // transitions: dissolve between environments; flashes on impacts
-const DISSOLVE = new Set(['B', 'D', 'F', 'H', 'J', 'K', 'L2', 'N']);
+const DISSOLVE = new Set(['B', 'E', 'F', 'G', 'H', 'J', 'K', 'L2', 'N']);
 const DISS_LEN = 6;
 const FLASHES = [[KEY.teleport, 0xcfe8ff], [KEY.hits, 0xffffff], [KEY.twoHundred, 0xffffff]];
 // motion blur windows (subframes) around fast moves

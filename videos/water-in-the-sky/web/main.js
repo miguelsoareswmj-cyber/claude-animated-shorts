@@ -102,7 +102,7 @@ const SHOTS = [
     const sag = 2 * Math.max(0, Math.sin((f - B.G) * 0.25)) * sstep(KEY.why, KEY.why + 10, f);
     T.update(f, { light: 'under', slab: true, slabDrop: sag, me: { pose: { expr: f < KEY.why ? 'nervous' : 'shock', blink: blinkOf(f), headTilt: 6 } } });
     const pz = burst(f, KEY.why, 10);
-    const pos = vlerp(V3(-2.2, 0.7, 11.2), V3(-3.6, 0.9, 8.9), pz), look = vlerp(V3(-5.2, 1.6, 6), V3(-5.2, 1.75, 6), pz);
+    const pos = vlerp(V3(-2.2, 0.7, 11.2), V3(-3.6, 0.9, 8.9), pz).add(V3(0, 0, -(f - B.G) * 0.012)), look = vlerp(V3(-5.2, 1.6, 6), V3(-5.2, 1.75, 6), pz);
     placeCam(T.cam, { pos, look, fov: 40, roll: 0.075 });
     return [T.scene, T.cam];
   } },
@@ -172,7 +172,7 @@ const SHOTS = [
     C.megaWave.visible = f >= KEY.km - 4;
     const t = (f - B.L) / (B.M - B.L);
     const pos = vlerp(V3(-640 + t * 40, 90, 980), V3(-900, 900, 3000), rise);
-    const look = vlerp(V3(0, 270, -60), V3(0, 900, -2000), rise);
+    const look = vlerp(V3(0, 270, -60), V3(0, 1150, -2000), rise);
     const sh = kick(f, KEY.km + 4, 6);
     pos.y += sh;
     placeCam(C.cam, { pos, look, fov: lerp(34, 52, rise), roll: lerp(-0.06, 0.07, rise) });
@@ -203,7 +203,7 @@ const SHOTS = [
     const hp = T.hero.position;
     T.me.mesh.position.set(hp.x + 0.5, hp.y + 10.3, hp.z + 0.6);
     const pz = burst(f, KEY.yourHouse - 6, 14);
-    const pos = V3(hp.x + lerp(12, 6, pz), hp.y + lerp(11.5, 11.4, pz), hp.z + lerp(16, 8, pz)), look = V3(hp.x + 0.5, hp.y + lerp(8.8, 10.7, pz), hp.z + 0.6);
+    const pos = V3(hp.x + lerp(9, 5, pz), hp.y + lerp(27, 19, pz), hp.z + lerp(13, 7.5, pz)), look = V3(hp.x + 0.5, hp.y + lerp(7, 10, pz), hp.z + 0.6);
     placeCam(T.cam, { pos, look, fov: 40, roll: lerp(0.07, 0.04, pz) });
     return [T.scene, T.cam];
   } },
@@ -280,7 +280,7 @@ window.renderFrame = (f) => {
     mixB = 1 - sstep(0, DISS_LEN, f - s.a + 1);
   }
   let flash = 0, fc = 0xffffff;
-  for (const [at, col] of FLASHES) { const d = f - at; if (d >= 0 && d < 4) { flash = [0.9, 0.6, 0.3, 0.1][d]; fc = col; } }
+  for (const [at, col] of FLASHES) { const d = Math.floor(f) - Math.ceil(at); if (d >= 0 && d < 4) { flash = [0.9, 0.6, 0.3, 0.1][d]; fc = col; } }
   finalMat.uniforms.tA.value = rtAcc.texture; finalMat.uniforms.tB.value = rtB.texture; finalMat.uniforms.mixB.value = mixB;
   finalMat.uniforms.flash.value = flash; finalMat.uniforms.flashC.value.set(fc);
   renderer.setRenderTarget(null); renderer.render(finalScene, quadCam);

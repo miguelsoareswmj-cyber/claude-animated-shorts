@@ -115,7 +115,7 @@ const slab = new THREE.Mesh(new THREE.BoxGeometry(SLAB * 2, THICK, SLAB * 2), ne
     vec3 c;
     if(vN.y<-.5){ // underside: caustic net
       vec2 q=vP.xz*.12; float v=vor(q); float v2=vor(q*2.7+3.);
-      c=mix(vec3(.05,.20,.44),vec3(.09,.32,.60),smoothstep(-.4,.4,sin(vP.x*.02+uT*.01)*sin(vP.z*.017)));
+      c=mix(vec3(.08,.27,.55),vec3(.13,.40,.70),smoothstep(-.4,.4,sin(vP.x*.02+uT*.01)*sin(vP.z*.017)));
       c+=vec3(.30,.60,.85)*(smoothstep(.28,.0,1.-v)*.0+smoothstep(.10,.0,abs(v-.62))*.22+smoothstep(.08,.0,abs(v2-.62))*.12);
     } else if(vN.y>.5){ // top: sunlit ocean surface
       vec2 q=vP.xz*.02; float v=vor(q);
@@ -191,11 +191,11 @@ flood.rotation.x = -Math.PI / 2; flood.visible = false; scene.add(flood);
 const C = (h) => new THREE.Color(h);
 export function preset(name) {
   const under = name === 'under';
-  sky.userData.u.uTop.value = under ? C(0x050a1e) : C(0x3e7fd2);
-  sky.userData.u.uHz.value = under ? C(0x10203f) : C(0xc4d6ee);
-  scene.fog.color = under ? C(0x0b1530) : C(0xc4d6ee); scene.fog.near = under ? 50 : 120; scene.fog.far = under ? 900 : 1400;
-  hemi.color = under ? C(0x3a62a8) : C(0xbcd3ff); hemi.groundColor = under ? C(0x141428) : C(0x9a7f6a); hemi.intensity = under ? 1.1 : 0.9;
-  sun.intensity = under ? 0.7 : 2.4; sun.color = under ? C(0x6fa8d8) : C(0xfff1dc);
+  sky.userData.u.uTop.value = under ? C(0x0b1636) : C(0x3e7fd2);
+  sky.userData.u.uHz.value = under ? C(0x1d3462) : C(0xc4d6ee);
+  scene.fog.color = under ? C(0x16264a) : C(0xc4d6ee); scene.fog.near = under ? 50 : 120; scene.fog.far = under ? 900 : 1400;
+  hemi.color = under ? C(0x4f7fcf) : C(0xbcd3ff); hemi.groundColor = under ? C(0x262a48) : C(0x9a7f6a); hemi.intensity = under ? 1.7 : 0.9;
+  sun.intensity = under ? 1.1 : 2.4; sun.color = under ? C(0x6fa8d8) : C(0xfff1dc);
   windows.forEach((m) => (m.emissiveIntensity = under ? 1.0 : 0));
   lampGlows.forEach((g) => (g.visible = under)); lampLights.forEach((l) => (l.intensity = under ? 5 : 0));
   me.mesh.material.emissiveIntensity = under ? 0.22 : 0.45;

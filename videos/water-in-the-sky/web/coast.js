@@ -66,7 +66,7 @@ function waveMesh(height, len, seed) {
   for (const [z, y] of prof.slice(1)) sh.lineTo(z * h, y * h); sh.closePath();
   const geo = new THREE.ExtrudeGeometry(sh, { depth: len, bevelEnabled: false, steps: 60 });
   // shape x -> world z, shape y -> world y, extrude z -> world x
-  geo.rotateY(Math.PI / 2); geo.translate(-len / 2, 0, 0);
+  geo.rotateY(-Math.PI / 2); geo.translate(len / 2, 0, 0);
   const p = geo.attributes.position, col = [];
   const deep = new THREE.Color(0x123f8a), mid = new THREE.Color(0x2275cc), lip = new THREE.Color(0x6cc3f5), foam = new THREE.Color(0xffffff);
   for (let i = 0; i < p.count; i++) {

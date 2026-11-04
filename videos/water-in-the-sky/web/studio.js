@@ -6,14 +6,14 @@ export const cam = makeCam(38, 1000);
 const back = new THREE.Mesh(new THREE.SphereGeometry(400, 32, 16), new THREE.ShaderMaterial({
   side: THREE.BackSide, depthWrite: false,
   vertexShader: `varying vec3 vP; void main(){ vP=position; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
-  fragmentShader: `varying vec3 vP; void main(){ float y=normalize(vP).y; gl_FragColor=vec4(mix(vec3(.16,.14,.36),vec3(.05,.06,.18),smoothstep(-.1,.6,y)),1.); }`
+  fragmentShader: `varying vec3 vP; void main(){ float y=normalize(vP).y; gl_FragColor=vec4(mix(vec3(.36,.30,.66),vec3(.16,.17,.42),smoothstep(-.1,.6,y)),1.); }`
 }));
 back.renderOrder = -5; scene.add(back);
-scene.add(new THREE.HemisphereLight(0x8fa6ff, 0x2a2246, 1.1));
-const key = new THREE.DirectionalLight(0xffe2b8, 2.3); key.position.set(-14, 22, 18); scene.add(key);
+scene.add(new THREE.HemisphereLight(0xa8b8ff, 0x4a3a76, 1.6));
+const key = new THREE.DirectionalLight(0xffe2b8, 2.8); key.position.set(-14, 22, 18); scene.add(key);
 const rim = new THREE.DirectionalLight(0x7fa0ff, 1.0); rim.position.set(16, 10, -14); scene.add(rim);
 {
-  const floor = inked(new THREE.CylinderGeometry(26, 26, 1, 64), toon(0x4a4380), 0.12); floor.position.y = -0.5; scene.add(floor);
+  const floor = inked(new THREE.CylinderGeometry(26, 26, 1, 64), toon(0x7468c0), 0.12); floor.position.y = -0.5; scene.add(floor);
   const ring = new THREE.Mesh(new THREE.TorusGeometry(26, 0.15, 6, 96), new THREE.MeshBasicMaterial({ color: 0xffd36b })); ring.rotation.x = Math.PI / 2; ring.position.y = 0.02; scene.add(ring);
 }
 // spotlight pool

@@ -1,0 +1,44 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Inter ExtraBold,104,&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,1,0,0,0,100,100,1,0,1,9,4,2,60,60,610,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.04,0:00:01.58,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}AT 12:04 PM,
+Dialogue: 0,0:00:01.58,0:00:02.23,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}EVERY {\c&H3AD8FF&}DROP{\c&HFFFFFF&} OF
+Dialogue: 0,0:00:02.23,0:00:03.01,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}WATER{\c&HFFFFFF&} ON EARTH
+Dialogue: 0,0:00:03.01,0:00:04.14,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}TELEPORTS{\c&HFFFFFF&} INTO THE
+Dialogue: 0,0:00:04.14,0:00:05.09,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}SKY.{\c&HFFFFFF&}
+Dialogue: 0,0:00:05.09,0:00:06.51,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}10{\c&HFFFFFF&} {\c&H3AD8FF&}KILOMETERS{\c&HFFFFFF&} UP.
+Dialogue: 0,0:00:06.51,0:00:07.32,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THEN {\c&H3AD8FF&}EVERYTHING{\c&HFFFFFF&} GOES
+Dialogue: 0,0:00:07.32,0:00:08.07,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}DARK.{\c&HFFFFFF&}
+Dialogue: 0,0:00:08.19,0:00:09.49,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}YOU STEP OUTSIDE.
+Dialogue: 0,0:00:09.49,0:00:10.26,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THERE'S AN {\c&H3AD8FF&}OCEAN{\c&HFFFFFF&}
+Dialogue: 0,0:00:10.26,0:00:11.44,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}ABOVE YOUR {\c&H3AD8FF&}HOUSE.{\c&HFFFFFF&}
+Dialogue: 0,0:00:11.44,0:00:12.25,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}A {\c&H3AD8FF&}WHALE{\c&HFFFFFF&} DRIFTS
+Dialogue: 0,0:00:12.25,0:00:13.06,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}PAST.
+Dialogue: 0,0:00:13.06,0:00:13.58,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}A {\c&H3AD8FF&}PLANE{\c&HFFFFFF&} IS
+Dialogue: 0,0:00:13.58,0:00:14.97,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}NOW A {\c&H3AD8FF&}SUBMARINE.{\c&HFFFFFF&}
+Dialogue: 0,0:00:15.09,0:00:15.71,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THE {\c&H3AD8FF&}SKY{\c&HFFFFFF&} CAN'T
+Dialogue: 0,0:00:15.71,0:00:16.53,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}HOLD IT.
+Dialogue: 0,0:00:16.53,0:00:18.02,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}IT'S {\c&H3AD8FF&}250{\c&HFFFFFF&} TIMES
+Dialogue: 0,0:00:18.02,0:00:19.30,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}HEAVIER{\c&HFFFFFF&} THAN {\c&H3AD8FF&}AIR.{\c&HFFFFFF&}
+Dialogue: 0,0:00:19.32,0:00:20.52,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}SO IT {\c&H3AD8FF&}FALLS.{\c&HFFFFFF&}
+Dialogue: 0,0:00:20.52,0:00:20.99,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}FISH.{\c&HFFFFFF&}
+Dialogue: 0,0:00:20.99,0:00:21.52,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}WHALES.{\c&HFFFFFF&}
+Dialogue: 0,0:00:21.52,0:00:22.44,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}SHIPS.{\c&HFFFFFF&}
+Dialogue: 0,0:00:22.51,0:00:23.38,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}IT {\c&H3AD8FF&}HITS{\c&HFFFFFF&} {\c&H3AD8FF&}EVERYWHERE{\c&HFFFFFF&}
+Dialogue: 0,0:00:23.38,0:00:24.24,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}AT ONCE.
+Dialogue: 0,0:00:24.24,0:00:24.86,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}THE WAVES ARE
+Dialogue: 0,0:00:24.86,0:00:26.14,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}{\c&H3AD8FF&}KILOMETERS{\c&HFFFFFF&} TALL.
+Dialogue: 0,0:00:26.28,0:00:27.02,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}YOUR {\c&H3AD8FF&}HOUSE{\c&HFFFFFF&} FLOATS
+Dialogue: 0,0:00:27.02,0:00:27.87,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}AWAY.
+Dialogue: 0,0:00:27.87,0:00:28.35,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}AND YOU'RE STILL
+Dialogue: 0,0:00:28.35,0:00:29.26,Cap,,0,0,0,,{\fscx118\fscy118\t(0,90,\fscx100\fscy100)}ON THE {\c&H3AD8FF&}ROOF.{\c&HFFFFFF&}

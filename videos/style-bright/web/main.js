@@ -229,3 +229,13 @@ window.lineup = () => {
   L.forEach((o, i) => g.drawImage(person(o).image, i * 400 - 40, 0, 480, 800 * 1.0));
   return c.toDataURL('image/jpeg', 0.92);
 };
+// ---- branding helpers ----
+window.personPNG = (o) => person(o).image.toDataURL('image/png');
+window.renderAt = (w, h, name) => {
+  renderer.setSize(w, h); cam.aspect = w / h;
+  if (name === 'banner') { cam.fov = 20; cam.position.set(150, 120, 240); cam.lookAt(-10, 6, 10); }
+  cam.updateProjectionMatrix();
+  for (const m of [hero, friend]) m.visible = false;
+  renderer.render(scene, cam);
+  return renderer.domElement.toDataURL('image/png');
+};

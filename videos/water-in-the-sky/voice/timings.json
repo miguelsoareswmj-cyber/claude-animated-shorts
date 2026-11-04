@@ -1,0 +1,137 @@
+{
+ "duration": 45.62,
+ "lines": [
+  {
+   "id": "h1",
+   "text": "If all of Earth's water teleported ten kilometers into the sky,",
+   "start": 0.07,
+   "end": 3.146
+  },
+  {
+   "id": "h2",
+   "text": "the whole planet would go dark at noon.",
+   "start": 3.206,
+   "end": 4.848
+  },
+  {
+   "id": "s1",
+   "text": "Every ocean, lake and river is now floating above your head,",
+   "start": 5.008,
+   "end": 7.84
+  },
+  {
+   "id": "s2",
+   "text": "two and a half kilometers thick.",
+   "start": 7.89,
+   "end": 9.27
+  },
+  {
+   "id": "e1",
+   "text": "Normally, the sky holds about an inch of rain.",
+   "start": 9.43,
+   "end": 11.831
+  },
+  {
+   "id": "e2",
+   "text": "Now it's holding the Pacific.",
+   "start": 11.951,
+   "end": 13.208
+  },
+  {
+   "id": "e3",
+   "text": "Fish swim over your house.",
+   "start": 13.348,
+   "end": 14.448
+  },
+  {
+   "id": "e4",
+   "text": "And planes at cruising altitude?",
+   "start": 14.568,
+   "end": 16.051
+  },
+  {
+   "id": "e5",
+   "text": "They're submarines now.",
+   "start": 16.151,
+   "end": 17.161
+  },
+  {
+   "id": "q1",
+   "text": "But wait. Why can't the sky just hold it?",
+   "start": 17.381,
+   "end": 19.271
+  },
+  {
+   "id": "y1",
+   "text": "You see, that water weighs over two hundred and fifty times more than all the air on Earth.",
+   "start": 19.451,
+   "end": 23.761
+  },
+  {
+   "id": "y2",
+   "text": "It's like balancing a bathtub on a paper towel.",
+   "start": 23.881,
+   "end": 26.05
+  },
+  {
+   "id": "f1",
+   "text": "So it falls.",
+   "start": 26.21,
+   "end": 26.958
+  },
+  {
+   "id": "f2",
+   "text": "For about forty five seconds, it rains fish, whales, and ships.",
+   "start": 27.058,
+   "end": 30.621
+  },
+  {
+   "id": "i1",
+   "text": "Then it hits everywhere at once.",
+   "start": 30.781,
+   "end": 32.27
+  },
+  {
+   "id": "i2",
+   "text": "The tallest wave ever recorded was five hundred and twenty four meters.",
+   "start": 32.39,
+   "end": 35.8
+  },
+  {
+   "id": "i3",
+   "text": "These are kilometers tall.",
+   "start": 35.9,
+   "end": 37.076
+  },
+  {
+   "id": "t1",
+   "text": "And all that falling turns into heat,",
+   "start": 37.256,
+   "end": 38.727
+  },
+  {
+   "id": "t2",
+   "text": "so the oceans land about twenty degrees warmer.",
+   "start": 38.777,
+   "end": 41.145
+  },
+  {
+   "id": "l1",
+   "text": "Luckily, it all drains back into the oceans.",
+   "start": 41.325,
+   "end": 43.528
+  },
+  {
+   "id": "l2",
+   "text": "Unluckily,",
+   "start": 43.668,
+   "end": 44.145
+  },
+  {
+   "id": "l3",
+   "text": "so does your house.",
+   "start": 44.445,
+   "end": 45.37
+  }
+ ]
+}

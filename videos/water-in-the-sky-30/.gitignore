@@ -3,3 +3,4 @@ frames/
 out/
 *.png.tmp
 __pycache__/
+node_modules

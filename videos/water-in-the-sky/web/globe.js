@@ -22,12 +22,13 @@ bg.frustumCulled = false; bg.renderOrder = -10; scene.add(bg);
 
 const tex = new THREE.TextureLoader().load('./earthmap.png');
 tex.colorSpace = THREE.NoColorSpace; tex.anisotropy = 8; tex.wrapS = THREE.RepeatWrapping;
-export const ready = () => !!(tex.image && tex.image.complete);
+const ltex = new THREE.TextureLoader().load('./landdist.png'); ltex.colorSpace = THREE.NoColorSpace; ltex.wrapS = THREE.RepeatWrapping;
+export const ready = () => !!(tex.image && tex.image.complete && ltex.image && ltex.image.complete);
 
 const sunDir = new THREE.Vector3(-0.55, 0.45, 0.70).normalize();
 const U = {
   uMap: { value: tex }, uLevel: { value: 0 }, uSun: { value: sunDir }, uDark: { value: 0 },
-  uFoam: { value: 0 }, uWarm: { value: 0 }, uFlood: { value: 0 }, uT: { value: 0 },
+  uFoam: { value: 0 }, uWarm: { value: 0 }, uFlood: { value: 0 }, uT: { value: 0 }, uLand: { value: ltex }, uFront: { value: 0 }, uRecede: { value: 0 },
 };
 const earth = new THREE.Mesh(new THREE.SphereGeometry(1, 256, 128), new THREE.ShaderMaterial({
   uniforms: U,
@@ -35,7 +36,7 @@ const earth = new THREE.Mesh(new THREE.SphereGeometry(1, 256, 128), new THREE.Sh
   void main(){ vUv=uv; vP=position; vN=normalize(mat3(modelMatrix)*normal);
     vec4 wp=modelMatrix*vec4(position,1.); vV=normalize(cameraPosition-wp.xyz);
     gl_Position=projectionMatrix*viewMatrix*wp; }`,
-  fragmentShader: `uniform sampler2D uMap; uniform float uLevel,uDark,uFoam,uWarm,uFlood,uT; uniform vec3 uSun;
+  fragmentShader: `uniform sampler2D uMap,uLand; uniform float uLevel,uDark,uFoam,uWarm,uFlood,uT,uFront,uRecede; uniform vec3 uSun;
   varying vec2 vUv; varying vec3 vN; varying vec3 vV; varying vec3 vP;
   vec3 hex(float r,float g,float b){ return vec3(r,g,b)/255.; }
   float hh(vec3 p){ return fract(sin(dot(p,vec3(12.9898,78.233,37.719)))*43758.5453); }
@@ -68,6 +69,16 @@ const earth = new THREE.Mesh(new THREE.SphereGeometry(1, 256, 128), new THREE.Sh
     // flood: land temporarily under churning water
     float fn=vn(vP*9.+uT*.05);
     alb=mix(alb,mix(hex(60.,140.,200.),hex(110.,170.,210.),fn),uFlood*land*smoothstep(.2,.6,uFlood+fn*.5));
+    // tsunami fronts racing inland from every coast (land distance in units of 3000 km)
+    if(uFront>0.){
+      float ld=texture2D(uLand,vUv).r + (fn-.5)*.025;
+      float under=land*(1.-smoothstep(uFront-.004,uFront+.004,ld));
+      float back=land*smoothstep(uFront-.004,uFront+.004,ld+uRecede);
+      vec3 churn=mix(hex(40.,110.,190.),hex(120.,180.,225.),fn);
+      alb=mix(alb,churn,under*(1.-uRecede*.9));
+      float band=land*(1.-smoothstep(.006,.022,abs(ld-uFront)))*(1.-uRecede);
+      alb=mix(alb,vec3(1.),band); alb=mix(alb,vec3(.05,.035,.07),land*(1.-smoothstep(.0,.004,abs(ld-uFront-.024)))*(1.-uRecede));
+    }
     vec3 N=normalize(vN); float ndl=dot(N,uSun);
     float lit=smoothstep(-.08,.12,ndl);
     vec3 L=mix(vec3(.26,.27,.42),vec3(1.32,1.26,1.12),lit)+vec3(.05,.06,.12);
@@ -160,7 +171,7 @@ for (let i = 0; i < 26; i++) { const s = sprite(steamTex, 0.32); s.material.opac
  */
 export function update(f, st) {
   U.uLevel.value = st.level <= 0 ? 0 : Math.pow(st.level, 1.6) * 0.9 + 0.0005;
-  U.uDark.value = st.dark ?? 0; U.uFoam.value = st.foam ?? 0; U.uWarm.value = st.warm ?? 0; U.uFlood.value = st.flood ?? 0; U.uT.value = f;
+  U.uDark.value = st.dark ?? 0; U.uFoam.value = st.foam ?? 0; U.uWarm.value = st.warm ?? 0; U.uFlood.value = st.flood ?? 0; U.uT.value = f; U.uFront.value = st.front ?? 0; U.uRecede.value = st.recede ?? 0;
   CU.uAmt.value = st.cloud ?? 1; CU.uT.value = f; CU.uDark.value = st.dark ?? 0;
   AU.uAmt.value = (0.55 + 0.45 * (st.cloud ?? 1)) * (1 - 0.5 * (st.dark ?? 0));
   earth.rotation.y = st.rotY ?? (-Math.PI / 2 + 0.70 + f * 0.0016);

@@ -12,22 +12,18 @@ import * as C from './coast.js';
 const LN = Object.fromEntries(TIM.lines.map((l) => [l.id, l]));
 const fr = (s) => s * FPS;
 /** frame where word i of line id starts (character-proportional inside the line) */
-export function wf(id, i) {
-  const l = LN[id]; const words = l.text.split(' ');
-  const total = l.text.length; const before = words.slice(0, i).join(' ').length + (i ? 1 : 0);
-  return fr(l.start + (l.end - l.start) * (before / total));
-}
+export function wf(id, i) { return fr(LN[id].words[i].s); }
 const ls = (id) => fr(LN[id].start), le = (id) => fr(LN[id].end);
 export const END = Math.ceil(fr(TIM.duration)) + 14; // room for the signature wah-wah
 
 // ---------- shot boundaries ----------
 const B = {
   A: 0, B: ls('s1') - 3, C: ls('e1') - 3, D: ls('e2') - 3, E: ls('e3') - 3, F: ls('e4') - 3, G: ls('q1') - 3,
-  H: ls('y1') - 3, I: ls('y2') - 3, J: ls('f1') - 3, J2: wf('f2', 2) - 2, K: ls('i1') - 3, L: ls('i2') - 3,
+  H: ls('y1') - 3, I: ls('y2') - 3, J: ls('f1') - 3, J2: wf('f2', 2) - 2, K: ls('i1') - 3, L: ls('i2') - 3, L2: ls('i3') - 2,
   M: ls('t1') - 3, M2: ls('t2') - 3, N: ls('l1') - 3, N2: ls('l2') - 2, Z: END,
 };
 const KEY = {
-  teleport: wf('h1', 5) - 2, dark: wf('h2', 5) - 2, floating: wf('s1', 7) - 2, thick: wf('s2', 0) - 2,
+  teleport: wf('h1', 6) - 2, dark: wf('h2', 7) - 2, floating: wf('s1', 7) - 2, thick: wf('s2', 0) - 2,
   inch: wf('e1', 6), pacific: wf('e2', 3) - 2, house: wf('e3', 3) - 2, sub: wf('e5', 1) - 2, why: wf('q1', 2) - 2,
   twoHundred: wf('y1', 5) - 2, air: wf('y1', 14), bathtub: wf('y2', 3) - 2, towel: wf('y2', 6) - 2,
   falls: wf('f1', 2) - 2, fish: wf('f2', 6) - 2, whales: wf('f2', 7) - 2, ships: wf('f2', 9) - 2,
@@ -157,25 +153,32 @@ const SHOTS = [
     G.update(f, {
       level: before ? 1 : 0, cloud: before ? 0 : sstep(hit + 10, hit + 40, f) * 0.6, dark: before ? 0.7 : 0.7 * (1 - sstep(hit, hit + 8, f)),
       shellR: before ? lerp(1.10, 1.0, easeIn(f, B.K, hit - B.K)) : 0, shellA: 0.92,
-      foam: before ? 0 : 1 - sstep(hit + 4, hit + 40, f), flood: before ? 0 : 1 - sstep(hit + 10, hit + 44, f),
-      ring: before ? 0 : clamp((f - hit) / 20), rotY: -Math.PI / 2 + 0.70 + 0.6 + f * 0.0016,
+      foam: before ? 0 : 0.8 * (1 - sstep(hit + 2, hit + 24, f)), flood: 0,
+      front: before ? 0 : 0.01 + 0.42 * burst(f, hit + 2, B.L - hit + 16),
+      ring: before ? 0 : clamp((f - hit) / 20), rotY: -Math.PI / 2 + 0.62 + (f - B.K) * 0.0016,
     });
-    const sh = kick(f, hit, 0.12);
-    G.setCam(lerp(8.2, 7.4, (f - B.K) / (B.L - B.K)), { x: sh, y: 0.5 + sh, roll: 0.06 });
+    // world scale: push in on the Americas, Europe and Africa as the walls of water race inland
+    const sh = kick(f, hit, 0.10);
+    G.setCam(lerp(7.8, 5.8, sstep(B.K, B.L, f)), { x: sh, y: lerp(0.5, 0.75, sstep(B.K, B.L, f)) + sh, lookY: lerp(0, 0.18, sstep(B.K, B.L, f)), roll: 0.06 });
     return [G.scene, G.cam];
   } },
-  { id: 'L', a: B.L, b: B.M, run(f) {
-    const w1z = lerp(-900, -400, (f - B.L) / (KEY.km - B.L));
-    const rise = burst(f, KEY.km - 4, 22);
-    C.update(f, { w1: Math.min(w1z, -400), w2: -2300 });
-    C.megaWave.scale.set(1, lerp(0.02, 1, rise), 1);
-    C.megaWave.visible = f >= KEY.km - 4;
-    const t = (f - B.L) / (B.M - B.L);
-    const pos = vlerp(V3(-640 + t * 40, 90, 980), V3(-900, 900, 3000), rise);
-    const look = vlerp(V3(0, 270, -60), V3(0, 1150, -2000), rise);
-    const sh = kick(f, KEY.km + 4, 6);
-    pos.y += sh;
-    placeCam(C.cam, { pos, look, fov: lerp(34, 52, rise), roll: lerp(-0.06, 0.07, rise) });
+  { id: 'L', a: B.L, b: B.L2, run(f) {
+    const t = (f - B.L) / (B.L2 - B.L);
+    C.update(f, { w1: lerp(-900, -400, t) });
+    const pos = V3(-640 + t * 60, 90, 980 - t * 40), look = V3(0, 270, -60);
+    placeCam(C.cam, { pos, look, fov: 34, roll: -0.06 });
+    return [C.scene, C.cam];
+  } },
+  { id: 'L2', a: B.L2, b: B.M, run(f) {
+    // one big city under a wave kilometres tall
+    const t = (f - B.L2) / (B.M - B.L2);
+    const rise = burst(f, B.L2, 14);
+    C.update(f, { w2: lerp(-3700, -3100, t), downtown: true });
+    C.megaWave.position.x = C.DT.x; C.megaWave.scale.set(1, lerp(0.35, 1, rise), 1);
+    const sh = kick(f, KEY.km + 2, 5) + Math.sin(f * 1.7) * 1.2 * t;
+    const pos = V3(C.DT.x - 260 + t * 30, 45 + sh, 1050 - t * 60);
+    const look = V3(C.DT.x, lerp(420, 1350, rise), lerp(-300, -1300, rise));
+    placeCam(C.cam, { pos, look, fov: lerp(55, 72, rise), roll: lerp(0.03, 0.07, t) });
     return [C.scene, C.cam];
   } },
   { id: 'M', a: B.M, b: B.M2, run(f) {
@@ -211,12 +214,12 @@ const SHOTS = [
 const shotAt = (f) => SHOTS.find((s) => f >= s.a && f < s.b) || SHOTS[SHOTS.length - 1];
 
 // transitions: dissolve between environments; flashes on impacts
-const DISSOLVE = new Set(['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'M2', 'N']);
+const DISSOLVE = new Set(['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'L2', 'M', 'M2', 'N']);
 const DISS_LEN = 6;
 const FLASHES = [[KEY.teleport, 0xcfe8ff], [KEY.hits, 0xffffff], [KEY.twoHundred, 0xffffff]];
 // motion blur windows (subframes) around fast moves
 const MB = [[KEY.teleport, 6], [B.B - 8, 14], [KEY.floating, 8], [KEY.thick, 12], [B.D - 6, 10], [KEY.pacific - 6, 8], [KEY.sub, 8], [KEY.twoHundred - 8, 14],
-  [B.J - 3, 8], [KEY.whales - 3, 8], [KEY.ships - 3, 8], [KEY.hits - 8, 14], [KEY.km - 4, 14], [KEY.yourHouse - 6, 8]];
+  [B.J - 3, 8], [KEY.whales - 3, 8], [KEY.ships - 3, 8], [KEY.hits - 8, 14], [B.L2, 10], [KEY.yourHouse - 6, 8]];
 const mbAt = (f) => MB.some(([a, d]) => f >= a && f < a + d);
 
 // custom shaders were authored in display (sRGB) values; the shot buffers are linear

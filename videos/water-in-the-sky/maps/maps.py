@@ -64,3 +64,8 @@ ln=(noise(48,5)*0.5+0.5).clip(0,1)
 Image.fromarray(np.dstack([land*255,(dep*255),(ln*255),ridge.clip(0,1)*255]).astype(np.uint8),'RGBA').save('earthmap.png')
 print(depth.min(), (dep>0).mean())
 Image.fromarray((dep*255).astype(np.uint8)).resize((1024,512)).save('dep_preview.png')
+# land distance-from-coast (km / 3000) for the inland tsunami fronts
+ld = ndimage.distance_transform_edt(np.concatenate([land[:, -256:], land, land[:, :256]], axis=1))[:, 256:-256] * km_per_px
+ld *= np.clip(np.cos(lat)[:, None] * 0.6 + 0.4, 0.4, 1)
+Image.fromarray((np.clip(ld / 3000, 0, 1) * 255).astype(np.uint8)).save('landdist.png')
+print('landdist max km', ld.max())

@@ -83,6 +83,25 @@ function waveMesh(height, len, seed) {
   return g;
 }
 export const wave1 = waveMesh(524, 1800, 1); scene.add(wave1);
+// one big downtown (far along the shore so it gets its own shot)
+export const DT = { x: 3200 };
+const downtown = new THREE.Group(); scene.add(downtown);
+{
+  const winTex = canvasTex(64, 128, (g) => { g.fillStyle = '#ffffff'; g.fillRect(0, 0, 64, 128); g.fillStyle = '#7f93b4'; for (let y = 8; y < 128; y += 16) for (let x = 6; x < 64; x += 16) g.fillRect(x, y, 9, 9); });
+  winTex.wrapS = winTex.wrapT = THREE.RepeatWrapping;
+  const cols = [0xe4dccb, 0xc7d6e6, 0xe8c2a2, 0xd2dcc0, 0xb8bfd6, 0xf0e0b8];
+  let k = 0;
+  for (let gx = -6; gx <= 6; gx++) for (let gz = 0; gz < 6; gz++) {
+    const x = gx * 62 + (hash(k) - 0.5) * 20, z = 80 + gz * 70 + (hash(k + 1) - 0.5) * 20;
+    const core = Math.exp(-((gx / 3.5) ** 2) - ((gz - 1.5) / 2.5) ** 2);
+    const h = 60 + core * 360 * (0.5 + 0.6 * hash(k + 2)), w = 32 + hash(k + 3) * 18;
+    const tx = winTex.clone(); tx.needsUpdate = true; tx.repeat.set(w / 16, h / 16);
+    const b = inked(new THREE.BoxGeometry(w, h, w), toon(cols[k % 6], { map: tx }), 1.3); b.position.set(x, h / 2, z); downtown.add(b);
+    if (h > 300 && hash(k + 5) > 0.4) { const sp = inked(new THREE.CylinderGeometry(0.8, 2.6, h * 0.18, 8), toon(0xbfc6cf), 0.8); sp.position.set(x, h + h * 0.09, z); downtown.add(sp); }
+    k++;
+  }
+  downtown.position.x = DT.x;
+}
 export const megaWave = waveMesh(3200, 16000, 7); scene.add(megaWave);
 
 // hot-tub close-up props (near the shore, z<0)
@@ -104,6 +123,7 @@ export function update(f, st) {
   seaU.uT.value = f; seaU.uWarm.value = st.warm ?? 0;
   wave1.visible = st.w1 !== undefined; if (wave1.visible) { wave1.position.set(0, 0, st.w1); }
   megaWave.visible = st.w2 !== undefined; if (megaWave.visible) { megaWave.position.set(0, -50, st.w2); }
+  downtown.visible = !!st.downtown;
   hot.visible = !!st.hot;
   if (st.hot) {
     hot.position.set(0, 0, -40);

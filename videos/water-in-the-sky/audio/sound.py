@@ -187,7 +187,7 @@ def roar(dur, r, lo=80, hi=1400):
 
 # signature: sting at 0, swoosh-pop on every place change
 fx(STING, 0.0, 0.9)
-for sid in ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'M2', 'N']:
+for sid in ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'L2', 'M', 'M2', 'N']:
     fx(wd(SWOOSH, R), SH[sid][0] - 0.17, 0.55)
 # 1 teleport
 fx(wd(whoosh(0.7, R, peak=0.12, f_lo=200, f_hi=4000, tail=0.3), R), K['teleport'] - 0.1, 0.7)
@@ -229,8 +229,9 @@ fx(ship_horn(R), K['ships'], 0.45, 0.4); fx(creak(0.8, R, 60, 90), K['ships'] + 
 # 9 impact: the planet-wide hit
 fx(boom(3.5, 80, 26, R, 1.0), K['hits'], 1.2); fx(wd(splash_big(R), R), K['hits'] + 0.03, 0.9)
 fx(wd(cymbal(1.0, R, dur=3.0), R), K['hits'], 0.3); fx(wd(roar(2.0, R, 60, 3000) * np.linspace(1, 0, ns(2.0)) ** 2, R), K['hits'] + 0.1, 0.5)
+fx(wd(roar(SH['K'][1] - K['hits'] + 0.4, R, 200, 4000) * np.linspace(1, 0.3, ns(SH['K'][1] - K['hits'] + 0.4)), R), K['hits'] + 0.15, 0.45)
 # 10 waves: approaching roar, giant rumble on "kilometers"
-a, b = SH['L']; n = ns(b - a); rr = roar(b - a, R, 60, 1800) * np.linspace(0.3, 1.0, n) ** 1.5; fx(wd(rr, R), a, 0.55)
+a, b = SH['L'][0], SH['L2'][1]; n = ns(b - a); rr = roar(b - a, R, 60, 1800) * np.linspace(0.3, 1.0, n) ** 1.5; fx(wd(rr, R), a, 0.55)
 fx(boom(3.0, 40, 22, R, 0.3), K['km'], 0.9)
 # 11 heat: steam hiss
 a, b = SH['M']; fx(wd(sizzle(b - a + 0.5, R), R), a + 0.1, 0.3)

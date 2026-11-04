@@ -18,7 +18,19 @@ for lid, text, gap in lines:
     e = np.convolve(np.abs(x), np.ones(480) / 480, 'same'); thr = 0.012
     idx = np.where(e > thr)[0]; a = max(0, idx[0] - 480); b = min(len(x), idx[-1] + 960)
     x = x[a:b]
-    tim.append({'id': lid, 'text': text, 'start': round(t, 3), 'end': round(t + len(x) / SR, 3)})
+    # word timings: synthesize each word alone, share the phrase duration by those durations
+    ws = text.split(' '); wd = []
+    for wi, wtxt in enumerate(ws):
+        ww = f'{HERE}/tmp_w.wav'
+        subprocess.run([PIPER, '-m', MODEL, '--length-scale', str(LS), '-f', ww], input=wtxt.strip(',.?!').encode(), check=True, capture_output=True)
+        with wave.open(ww) as w2: y = np.frombuffer(w2.readframes(w2.getnframes()), np.int16) / 32768.0
+        ey = np.convolve(np.abs(y), np.ones(220) / 220, 'same'); iy = np.where(ey > thr)[0]
+        wd.append(max(0.08, (iy[-1] - iy[0]) / 22050 if len(iy) else 0.1) + (0.12 if wtxt[-1] in ',.?!' else 0))
+        os.remove(ww)
+    tot = sum(wd); dur = len(x) / SR; acc = 0; words = []
+    for wtxt, d in zip(ws, wd):
+        words.append({'w': wtxt, 's': round(t + acc / tot * dur, 3), 'e': round(t + (acc + d) / tot * dur, 3)}); acc += d
+    tim.append({'id': lid, 'text': text, 'start': round(t, 3), 'end': round(t + len(x) / SR, 3), 'words': words})
     out += [x, np.zeros(int(gap * SR))]; t += len(x) / SR + gap
     os.remove(wav)
 v = np.concatenate(out + [np.zeros(int(0.25 * SR))])

@@ -1,24 +1,112 @@
 [
- ["h1","If all of Earth's water teleported ten kilometers into the sky,",0.06],
- ["h2","the whole planet would go dark at noon.",0.16],
- ["s1","Every ocean, lake and river is now floating above your head,",0.05],
- ["s2","two and a half kilometers thick.",0.16],
- ["e1","Normally, the sky holds about an inch of rain.",0.12],
- ["e2","Now it's holding the Pacific.",0.14],
- ["e3","Fish swim over your house.",0.12],
- ["e4","And planes at cruising altitude?",0.10],
- ["e5","They're submarines now.",0.22],
- ["q1","But wait. Why can't the sky just hold it?",0.18],
- ["y1","You see, that water weighs over two hundred and fifty times more than all the air on Earth.",0.12],
- ["y2","It's like balancing a bathtub on a paper towel.",0.16],
- ["f1","So it falls.",0.10],
- ["f2","For about forty five seconds, it rains fish, whales, and ships.",0.16],
- ["i1","Then it hits everywhere at once.",0.12],
- ["i2","The tallest wave ever recorded was five hundred and twenty four meters.",0.10],
- ["i3","These are kilometers tall.",0.18],
- ["t1","And all that falling turns into heat,",0.05],
- ["t2","so the oceans land about twenty degrees warmer.",0.18],
- ["l1","Luckily, it all drains back into the oceans.",0.14],
- ["l2","Unluckily,",0.30],
- ["l3","so does your house.",0.0]
+ [
+  "h1",
+  "What if all of Earth's water teleported into the sky?",
+  0.16
+ ],
+ [
+  "h2",
+  "Ten kilometers up, the whole planet goes dark at noon.",
+  0.16
+ ],
+ [
+  "s1",
+  "Every ocean, lake and river is now floating above your head,",
+  0.05
+ ],
+ [
+  "s2",
+  "two and a half kilometers thick.",
+  0.16
+ ],
+ [
+  "e1",
+  "Normally, the sky holds about an inch of rain.",
+  0.12
+ ],
+ [
+  "e2",
+  "Now it's holding the Pacific.",
+  0.14
+ ],
+ [
+  "e3",
+  "Fish swim over your house.",
+  0.12
+ ],
+ [
+  "e4",
+  "And planes at cruising altitude?",
+  0.1
+ ],
+ [
+  "e5",
+  "They're submarines now.",
+  0.22
+ ],
+ [
+  "q1",
+  "But wait. Why can't the sky just hold it?",
+  0.18
+ ],
+ [
+  "y1",
+  "You see, that water weighs over two hundred and fifty times more than all the air on Earth.",
+  0.12
+ ],
+ [
+  "y2",
+  "It's like balancing a bathtub on a paper towel.",
+  0.16
+ ],
+ [
+  "f1",
+  "So it falls.",
+  0.1
+ ],
+ [
+  "f2",
+  "For about forty five seconds, it rains fish, whales, and ships.",
+  0.16
+ ],
+ [
+  "i1",
+  "Then it hits everywhere at once.",
+  0.12
+ ],
+ [
+  "i2",
+  "The tallest wave ever recorded was five hundred and twenty four meters.",
+  0.1
+ ],
+ [
+  "i3",
+  "These are kilometers tall.",
+  0.18
+ ],
+ [
+  "t1",
+  "And all that falling turns into heat,",
+  0.05
+ ],
+ [
+  "t2",
+  "so the oceans land about twenty degrees warmer.",
+  0.18
+ ],
+ [
+  "l1",
+  "Luckily, it all drains back into the oceans.",
+  0.14
+ ],
+ [
+  "l2",
+  "Unluckily,",
+  0.3
+ ],
+ [
+  "l3",
+  "so does your house.",
+  0.0
+ ]
 ]

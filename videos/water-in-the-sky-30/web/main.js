@@ -212,7 +212,7 @@ const SHOTS = [
     return [T.scene, T.cam];
   } },
 ];
-const shotAt = (f) => SHOTS.find((s) => f >= s.a && f < s.b) || SHOTS[SHOTS.length - 1];
+const shotAt = (f) => (f < 0 ? SHOTS[0] : SHOTS.find((s) => f >= s.a && f < s.b) || SHOTS[SHOTS.length - 1]);
 
 // transitions: dissolve between environments; flashes on impacts
 const DISSOLVE = new Set(['B', 'E', 'F', 'G', 'H', 'J', 'K', 'L2', 'N']);
@@ -221,7 +221,7 @@ const FLASHES = [[KEY.teleport, 0xcfe8ff], [KEY.hits, 0xffffff], [KEY.twoHundred
 // motion blur windows (subframes) around fast moves
 const MB = [[KEY.teleport, 6], [B.B - 8, 14], [KEY.floating, 8], [KEY.thick, 12], [B.D - 6, 10], [KEY.pacific - 6, 8], [KEY.sub, 8], [KEY.twoHundred - 8, 14],
   [B.J - 3, 8], [KEY.whales - 3, 8], [KEY.ships - 3, 8], [KEY.hits - 8, 14], [B.L2, 10], [KEY.yourHouse - 6, 8]];
-const mbAt = (f) => MB.some(([a, d]) => f >= a && f < a + d);
+const mbAt = (f) => MB.some(([a, d]) => a > 12 && f >= a && f < a + d);
 
 // custom shaders were authored in display (sRGB) values; the shot buffers are linear
 for (const sc of [G.scene, T.scene, U.scene, S.scene, C.scene]) sc.traverse((o) => {

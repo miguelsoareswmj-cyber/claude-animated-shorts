@@ -39,6 +39,8 @@ for l in T['lines']:
 # group: break after punctuation / line ends; at most 3 words, and only 2 if they are long
 chunks, cur = [], []
 for w in words:
+    if cur and len(' '.join(x['w'] for x in cur + [w])) > 16:
+        chunks.append(cur); cur = []
     cur.append(w)
     txt = ' '.join(x['w'] for x in cur)
     brk = w['end_line'] or re.search(r'[,.?!]$', w['w']) or len(cur) == 3 or len(txt) > 15

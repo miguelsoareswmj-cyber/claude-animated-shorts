@@ -43,7 +43,7 @@ sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.6; sun.shadow.radius = 4; s
 
 // ---------- ground, river, roads ----------
 const ground = sh(new THREE.Mesh(new THREE.BoxGeometry(900, 2, 900), mat(P.ground))); ground.position.y = -1; scene.add(ground);
-const river = new THREE.Mesh(new THREE.PlaneGeometry(900, 46), new THREE.ShaderMaterial({
+const river = new THREE.Mesh(new THREE.PlaneGeometry(900, 46, 180, 12), new THREE.ShaderMaterial({
   uniforms: { a: { value: new THREE.Color(P.water) }, b: { value: new THREE.Color(P.waterDeep) } },
   vertexShader: 'varying vec2 u; varying vec3 w; void main(){ u=uv; w=(modelMatrix*vec4(position,1.)).xyz; gl_Position=projectionMatrix*viewMatrix*vec4(w,1.); }',
   fragmentShader: `uniform vec3 a,b; varying vec2 u; varying vec3 w;
@@ -311,7 +311,7 @@ function worldState(f) {
   // cars rise up to ~0.6 m and tilt, then slam down and bounce
   CARS.forEach((c, i) => {
     const b = c.userData.base; let y = 0.3, rx = 0, rz = 0;
-    if (up) { const a = sstep(K.lift - 20, K.lift + 60, f) * (0.35 + 0.35 * hash(i)); y += a; rx = a * 0.18 * (hash(i + 2) - 0.5); rz = a * 0.22 * (hash(i + 5) - 0.5); }
+    if (up) { const a = sstep(K.lift - 20, K.lift + 70, f) * (0.8 + 0.9 * hash(i)); y += a + Math.sin(f * 0.06 + i) * 0.05 * a; rx = a * 0.16 * (hash(i + 2) - 0.5); rz = a * 0.2 * (hash(i + 5) - 0.5); }
     else if (f >= K.drop) { const d = f - K.drop; y += Math.max(0, Math.sin(Math.min(d, 9) / 9 * Math.PI)) * 0.12 * Math.exp(-d / 10); }
     c.position.set(b.x, y, b.z); c.rotation.set(rx, b.rot, rz);
   });
@@ -344,7 +344,7 @@ const SHOTS = [
   { id: 'A', a: B.A, b: B.B, run(f) { const t = (f - B.A) / (B.B - B.A); CURLY_SHOT(f, t); setPose(curly, { mood: f < K.off + 10 ? 'happy' : 'shock', arms: 'down' }); return 'city'; } },
   { id: 'B', a: B.B, b: B.C, run(f) { // the spinning Earth, Curly peels off along a straight line
     earth.rotation.y = -1.2 + f * 0.01; const t = (f - B.B) / (B.C - B.B);
-    gCam.position.set(0, 0.45, lerp(9.0, 8.2, t)); gCam.lookAt(0, 0.35, 0); gCam.updateProjectionMatrix();
+    gCam.position.set(lerp(0, 0.4, t), 0.45, lerp(9.2, 7.0, t)); gCam.lookAt(0, lerp(0.35, 0.6, t), 0); gCam.updateProjectionMatrix();
     const pe = easeOut(f, K.peel - 10, 50); const sx = 0, sy = 1.0; // top of the globe
     tiny.position.set(sx + pe * 1.1, sy + pe * pe * 0.45, 0.2); tiny.rotation.z = -pe * 0.6; tiny.visible = true;
     path.position.set(sx, sy + 0.05, 0.19); path.visible = f > K.peel - 10; path.children.forEach((d, i) => (d.visible = i / 14 < pe));
@@ -355,14 +355,14 @@ const SHOTS = [
   { id: 'E', a: B.E, b: B.F, run(f) { const t = (f - B.E) / (B.F - B.E); const jy = jay.position.y;
     look(V(4.1, 0.4 + jy * 0.85, 5.6), V(3.2, 0.6 + jy + 1.0, 1.2), 40, -0.06); return 'city'; } },
   { id: 'F', a: B.F, b: B.G1, run(f) { const t = (f - B.F) / (B.G1 - B.F); const sh = kick(f, K.drop, 0.12);
-    look(V(-16 + sh, 4.2 + sh, 3.5), V(2, 0.7, -8.5), 40, 0.04); return 'city'; } },
-  { id: 'G1', a: B.G1, b: B.G2, run(f) { const c = CARS[CARS.length - 5].userData.base; look(V(c.x - 9, 2.4, c.z + 12), V(c.x, 0.8, c.z), 30, -0.05); return 'city'; } },
+    look(V(-16 + sh + t * 1.2, 4.2 + sh - t * 0.3, 3.5 - t * 0.8), V(2, 0.7, -8.5), 40, 0.04); return 'city'; } },
+  { id: 'G1', a: B.G1, b: B.G2, run(f) { const c = CARS[CARS.length - 5].userData.base; const u = (f - B.G1) / (B.G2 - B.G1); look(V(c.x - 9 + u * 0.8, 2.4, c.z + 12 - u * 1.2), V(c.x, 0.8, c.z), 30, -0.05); return 'city'; } },
   { id: 'G2', a: B.G2, b: B.H, run(f) { setPose(curly, { mood: 'shock', arms: 'down' }); const hand = V(-0.25, 0.53, 0.06).applyMatrix4(curly.matrixWorld);
     look(V(hand.x + 0.15, hand.y + 0.45, hand.z - 2.3), V(hand.x + 0.12, hand.y + 0.5, hand.z), 32, 0.04); return 'city'; } },
   { id: 'H', a: B.H, b: B.I, run(f) { const t = (f - B.H) / (B.I - B.H); setPose(curly, { mood: 'shock', arms: 'down' });
     jay.position.y = 0.6 + 15 + Math.sin(f * 0.1) * 0.1; dash.position.set(3.2, 0, 1.25); dash.visible = true;
     look(V(-1.4, 1.0, 6.8 - t * 0.3), V(2.4, 8.5, 1.5), 58, 0.07); return 'city'; } },
-  { id: 'I', a: B.I, b: B.Z, run(f) { const t = (f - B.I) / (B.Z - B.I); CURLY_SHOT(f, 1 - t * 0.0); setPose(curly, { mood: 'smug', arms: 'down' }); return 'city'; } },
+  { id: 'I', a: B.I, b: B.Z, run(f) { const t = (f - B.I) / (B.Z - B.I); CURLY_SHOT(f, 1 - t); setPose(curly, { mood: 'smug', arms: 'down' }); return 'city'; } },
 ];
 const shotAt = (f) => SHOTS.find((s) => f >= s.a && f < s.b) || SHOTS[SHOTS.length - 1];
 const flashEl = { v: 0 };

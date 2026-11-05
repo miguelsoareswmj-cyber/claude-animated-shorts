@@ -43,7 +43,7 @@ sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.6; sun.shadow.radius = 4; s
 
 // ---------- ground, river, roads ----------
 const ground = sh(new THREE.Mesh(new THREE.BoxGeometry(900, 2, 900), mat(P.ground))); ground.position.y = -1; scene.add(ground);
-const river = new THREE.Mesh(new THREE.PlaneGeometry(900, 46), new THREE.ShaderMaterial({
+const river = new THREE.Mesh(new THREE.PlaneGeometry(900, 46, 180, 12), new THREE.ShaderMaterial({
   uniforms: { a: { value: new THREE.Color(P.water) }, b: { value: new THREE.Color(P.waterDeep) } },
   vertexShader: 'varying vec2 u; varying vec3 w; void main(){ u=uv; w=(modelMatrix*vec4(position,1.)).xyz; gl_Position=projectionMatrix*viewMatrix*vec4(w,1.); }',
   fragmentShader: `uniform vec3 a,b; varying vec2 u; varying vec3 w;

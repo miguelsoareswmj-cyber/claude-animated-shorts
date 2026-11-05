@@ -7,7 +7,7 @@ const W = 1080, H = 1920;
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
 renderer.setPixelRatio(1); renderer.setSize(W, H);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.12;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.08;
 renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
@@ -33,11 +33,11 @@ scene.background = new THREE.Color(P.sky);
     fragmentShader: 'uniform vec3 a,b; varying vec3 p; void main(){ float y=normalize(p).y; gl_FragColor=vec4(mix(b,a,smoothstep(-.05,.6,y)),1.); }' }));
   scene.add(g);
 }
-scene.fog = new THREE.Fog(0xeaf7ff, 260, 900);
+scene.fog = new THREE.Fog(0xeaf7ff, 380, 1400);
 
 // light: big soft sun + very bright sky fill (high-key, shadows stay light and blue)
-const hemi = new THREE.HemisphereLight(0xffffff, 0xcfd8e6, 2.1); scene.add(hemi);
-const sun = new THREE.DirectionalLight(0xfff4e2, 2.6); sun.position.set(-90, 160, 70); sun.castShadow = true;
+const hemi = new THREE.HemisphereLight(0xfff8ef, 0xa9b6d6, 1.8); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffe7c4, 3.1); sun.position.set(-90, 160, 70); sun.castShadow = true;
 sun.shadow.mapSize.set(4096, 4096); const sc = sun.shadow.camera; sc.left = -170; sc.right = 170; sc.top = 170; sc.bottom = -170; sc.near = 10; sc.far = 500;
 sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.6; sun.shadow.radius = 4; scene.add(sun);
 
@@ -114,6 +114,48 @@ for (let i = 0; i < 16; i++) car(-120 + i * 15 + hash(i) * 5, -8 + (i % 2 ? 2.2 
 for (let i = 0; i < 6; i++) car(40 + (i % 2 ? 2.2 : -2.2), 10 + i * 8, i % 2 ? 0 : Math.PI, P.cars[(i + 2) % 6]);
 // a busy stretch in front of the riverside stage
 for (let i = 0; i < 9; i++) car(-14 + i * 4.2 + hash(i + 40) * 1.5, -8 + (i % 2 ? 2.2 : -2.2), i % 2 ? Math.PI / 2 : -Math.PI / 2, P.cars[(i + 1) % 6]);
+
+
+// ---------- props along the riverside promenade (z ~ 3.6) and street dressing ----------
+const PROPS = new THREE.Group(); scene.add(PROPS);
+function lamp(x, z) {
+  const g = new THREE.Group();
+  const pole = sh(new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.09, 3.6, 10), mat(0x3d4b6b, { roughness: 0.5 }))); pole.position.y = 1.8; g.add(pole);
+  const arm = sh(new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.7, 8), mat(0x3d4b6b))); arm.rotation.z = Math.PI / 2; arm.position.set(0.3, 3.55, 0); g.add(arm);
+  const head = sh(new THREE.Mesh(new RoundedBoxGeometry(0.42, 0.18, 0.28, 2, 0.06), mat(0x3d4b6b))); head.position.set(0.62, 3.5, 0); g.add(head);
+  const bulb = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.04, 0.18), new THREE.MeshBasicMaterial({ color: 0xfff1c9 })); bulb.position.set(0.62, 3.4, 0); g.add(bulb);
+  const flag = sh(new THREE.Mesh(new RoundedBoxGeometry(0.04, 0.8, 0.45, 2, 0.02), mat([0xff6b4a, 0x4cc9f0, 0xffc93c][Math.abs(Math.round(x)) % 3]))); flag.position.set(0.0, 2.7, 0.25); g.add(flag);
+  g.position.set(x, 0.6, z); PROPS.add(g); return g;
+}
+function bench(x, z) {
+  const g = new THREE.Group();
+  for (let i = 0; i < 3; i++) { const sl = sh(new THREE.Mesh(new RoundedBoxGeometry(1.6, 0.06, 0.14, 2, 0.02), mat(0xd9874e))); sl.position.set(0, 0.45, -0.18 + i * 0.16); g.add(sl); }
+  for (let i = 0; i < 2; i++) { const bk = sh(new THREE.Mesh(new RoundedBoxGeometry(1.6, 0.12, 0.05, 2, 0.02), mat(0xd9874e))); bk.position.set(0, 0.62 + i * 0.17, 0.22); bk.rotation.x = -0.15; g.add(bk); }
+  for (const s of [-0.7, 0.7]) { const l = sh(new THREE.Mesh(new RoundedBoxGeometry(0.08, 0.5, 0.5, 2, 0.02), mat(0x3d4b6b))); l.position.set(s, 0.25, 0); g.add(l); }
+  g.position.set(x, 0.6, z); g.rotation.y = Math.PI; PROPS.add(g); return g;
+}
+function planter(x, z) {
+  const b = sh(new THREE.Mesh(new RoundedBoxGeometry(1.2, 0.5, 0.6, 2, 0.08), mat(0xf3e6d6))); b.position.set(x, 0.85, z); PROPS.add(b);
+  for (let i = 0; i < 6; i++) { const f = sh(new THREE.Mesh(new THREE.IcosahedronGeometry(0.16, 1), mat([0xff6b9a, 0xffc93c, 0xff8a4a, 0xb68cff][i % 4]))); f.position.set(x - 0.45 + i * 0.18, 1.18 + hash(i + x) * 0.08, z + (hash(i * 3 + x) - 0.5) * 0.3); PROPS.add(f); }
+  const bush = sh(new THREE.Mesh(new THREE.IcosahedronGeometry(0.35, 1), mat(0x5fd08a))); bush.scale.set(1.5, 0.7, 0.8); bush.position.set(x, 1.12, z); PROPS.add(bush);
+}
+const LAMPS = [];
+for (let x = -40; x <= 40; x += 8) { LAMPS.push(lamp(x, 5.0)); }
+for (let x = -36; x <= 36; x += 16) bench(x, 4.8);
+for (let x = -28; x <= 36; x += 16) planter(x + 2, 4.9);
+// promenade paving: a warm strip with tile lines (where the cast walks)
+{
+  const pv = sh(new THREE.Mesh(new THREE.BoxGeometry(200, 0.6, 5.0, 50, 1, 2), mat(0xf4e9da))); pv.position.set(0, 0.3, 3.4); scene.add(pv);
+  for (let x = -100; x < 100; x += 2) { const l = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.01, 5.0), mat(0xe4d6c2)); l.position.set(x, 0.61, 3.4); scene.add(l); }
+  const cw = []; for (let i = 0; i < 8; i++) { const c = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.02, 7), mat(0xffffff)); c.position.set(18 + i * 1.3, 0.32, -8); scene.add(c); }
+}
+// low-poly clouds
+const CLOUDS = [];
+for (let i = 0; i < 14; i++) {
+  const g = new THREE.Group();
+  for (let k = 0; k < 5; k++) { const p = new THREE.Mesh(new THREE.IcosahedronGeometry(6 + hash(i * 9 + k) * 5, 1), mat(0xffffff, { roughness: 1 })); p.position.set((k - 2) * 7 + hash(k + i) * 3, hash(k * 5 + i) * 4, hash(k * 7 + i) * 4); g.add(p); }
+  g.position.set(-300 + i * 50 + hash(i) * 30, 70 + hash(i + 3) * 40, -260 - hash(i + 5) * 200); g.scale.y = 0.6; scene.add(g); CLOUDS.push(g);
+}
 
 // ---------- the cast: flat 2D cards, thick outlines, round heads, bright & unlit ----------
 const INK = '#26202e';

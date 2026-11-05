@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Rig Test</title>
+<script type="importmap">{"imports":{"three":"../node_modules/three/build/three.module.js"}}</script></head><body style="margin:0">
+<script type="module">
+import { drawPerson, OUTFITS, walk, flail, standPose } from './rig.js';
+const W = 6, c = document.createElement('canvas'); c.width = 300 * W; c.height = 1000; const g = c.getContext('2d');
+g.fillStyle = '#bfe6ff'; g.fillRect(0, 0, c.width, c.height);
+const t = document.createElement('canvas'); t.width = 600; t.height = 1000; const tg = t.getContext('2d');
+const poses = [
+  [OUTFITS.curly, { ...walk(0), mood: 'happy' }], [OUTFITS.curly, { ...walk(5), mood: 'happy', mouth: 0.6 }],
+  [OUTFITS.curly, { ...standPose(0), mood: 'shock', look: 1, headTilt: -8 }],
+  [OUTFITS.jay, { ...flail(3), mood: 'scream', sweat: true }], [OUTFITS.jay, { ...flail(9), mood: 'scream' }],
+  [OUTFITS.mia, { ...standPose(0), mood: 'smug', armR: [100, 10] }],
+];
+poses.forEach(([o, p], i) => { drawPerson(tg, o, p); g.drawImage(t, i * 300, 0, 300, 500); });
+window.OUT = c.toDataURL('image/jpeg', 0.9);
+</script></body></html>

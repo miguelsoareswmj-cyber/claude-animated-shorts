@@ -1,17 +1,67 @@
 [
- ["a1","Gravity just turned off.",0.40],
- ["a2","Five seconds.",0.45],
- ["a3","Nothing flies away. Not yet.",0.45],
- ["b1","Earth spins at over sixteen hundred kilometers an hour,",0.12],
- ["b2","so everything keeps going straight, and slowly peels off the planet.",0.45],
- ["c1","Your coffee floats out of the cup.",0.35],
- ["c2","Cars lift off the road.",0.40],
- ["d1","And Jay?",0.25],
- ["d2","Jay was mid-jump.",0.50],
- ["e1","Then gravity comes back.",0.30],
- ["e2","Everything drops at once.",0.35],
- ["e3","Every car. Every cup.",0.40],
- ["f1","Except Jay.",0.30],
- ["f2","Jay is fifteen meters up.",0.50],
- ["g1","And Curly is just waiting for gravity to turn off again.",0.0]
+ [
+  "s1",
+  "What if gravity just stopped?",
+  0.25
+ ],
+ [
+  "s1b",
+  "For five seconds?",
+  0.7
+ ],
+ [
+  "s2",
+  "At first, it might look pretty cool.",
+  0.2
+ ],
+ [
+  "s2b",
+  "Until you realize nothing is holding you down.",
+  1.7
+ ],
+ [
+  "s3",
+  "Cars would lift off the road.",
+  0.4
+ ],
+ [
+  "s3b",
+  "Oceans would rise.",
+  0.4
+ ],
+ [
+  "s3c",
+  "And anything not attached to the ground would start floating.",
+  2.1
+ ],
+ [
+  "s4",
+  "But here's where it gets terrifying.",
+  0.35
+ ],
+ [
+  "s4b",
+  "After five seconds, gravity comes back.",
+  5.6
+ ],
+ [
+  "s5",
+  "Everything that went up, comes crashing down.",
+  0.3
+ ],
+ [
+  "s5b",
+  "Cars. People. Furniture. Water. Everything.",
+  3.8
+ ],
+ [
+  "s6",
+  "And the craziest part?",
+  0.3
+ ],
+ [
+  "s6b",
+  "Five seconds would be enough to turn an ordinary day into absolute chaos.",
+  0.0
+ ]
 ]

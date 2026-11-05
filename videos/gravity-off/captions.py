@@ -9,9 +9,9 @@ src, dst = sys.argv[1], sys.argv[2]
 T = json.load(open(src))
 
 # spoken number phrases -> digits (matched on the lower-cased words)
-NUM = [(['sixteen', 'hundred'], '1,600'), (['fifteen'], '15'), (['five'], '5')]
-KEYWORDS = {'gravity', 'off', '5', 'nothing', 'spins', '1600', 'peels', 'planet', 'coffee', 'floats', 'cars', 'jay', 'midjump',
-            'drops', 'everything', 'car', 'cup', 'except', '15', 'meters', 'curly', 'again', 'straight', 'yet'}
+NUM = [(['five'], '5')]
+KEYWORDS = {'gravity', 'stopped', '5', 'seconds', 'cool', 'nothing', 'down', 'cars', 'lift', 'oceans', 'rise', 'floating', 'terrifying',
+            'back', 'crashing', 'people', 'furniture', 'water', 'everything', 'craziest', 'chaos', 'ordinary'}
 
 def clean(w):
     return re.sub(r"[^\w']", '', w).lower()

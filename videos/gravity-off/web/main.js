@@ -42,7 +42,7 @@ sun.shadow.mapSize.set(4096, 4096); const sc = sun.shadow.camera; sc.left = -170
 sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.6; sun.shadow.radius = 4; scene.add(sun);
 
 // ---------- ground, river, roads ----------
-const ground = sh(new THREE.Mesh(new THREE.BoxGeometry(900, 2, 900), mat(P.ground))); ground.position.y = -1; scene.add(ground);
+const ground = sh(new THREE.Mesh(new THREE.BoxGeometry(900, 2, 900, 120, 1, 120), mat(P.ground))); ground.position.y = -1; scene.add(ground);
 const river = new THREE.Mesh(new THREE.PlaneGeometry(900, 46, 180, 12), new THREE.ShaderMaterial({
   uniforms: { a: { value: new THREE.Color(P.water) }, b: { value: new THREE.Color(P.waterDeep) } },
   vertexShader: 'varying vec2 u; varying vec3 w; void main(){ u=uv; w=(modelMatrix*vec4(position,1.)).xyz; gl_Position=projectionMatrix*viewMatrix*vec4(w,1.); }',
@@ -51,12 +51,12 @@ const river = new THREE.Mesh(new THREE.PlaneGeometry(900, 46, 180, 12), new THRE
       float s=sin(w.x*.12+sin(w.z*.35+w.x*.05)*2.2)*.5+.5; float s2=sin(w.x*.31-w.z*.22)*.5+.5; c=mix(c,vec3(.85,1.,1.),smoothstep(.97,.995,s*s2+.02)*.5);
       gl_FragColor=vec4(c,1.); }` }));
 river.rotation.x = -Math.PI / 2; river.position.set(0, 0.05, 30); scene.add(river);
-for (const s of [-1, 1]) { const bank = sh(new THREE.Mesh(new THREE.BoxGeometry(900, 1.2, 3), mat(0xd9dde2))); bank.position.set(0, 0.4, 30 + s * 24.5); scene.add(bank); }
+for (const s of [-1, 1]) { const bank = sh(new THREE.Mesh(new THREE.BoxGeometry(900, 1.2, 3, 120, 1, 1), mat(0xd9dde2))); bank.position.set(0, 0.4, 30 + s * 24.5); scene.add(bank); }
 function road(x, z, w, d) {
-  const r = sh(new THREE.Mesh(new THREE.BoxGeometry(w, 0.3, d), mat(P.road, { roughness: 0.95 }))); r.position.set(x, 0.15, z); scene.add(r);
+  const r = sh(new THREE.Mesh(new THREE.BoxGeometry(w, 0.3, d, Math.ceil(w / 8), 1, Math.ceil(d / 8)), mat(P.road, { roughness: 0.95 }))); r.position.set(x, 0.15, z); scene.add(r);
   const long = w > d; const n = Math.floor((long ? w : d) / 7);
   for (let i = 0; i < n; i++) { const m = new THREE.Mesh(new THREE.BoxGeometry(long ? 3 : 0.35, 0.05, long ? 0.35 : 3), mat(P.lane)); m.position.set(long ? x - w / 2 + 3.5 + i * 7 : x, 0.33, long ? z : z - d / 2 + 3.5 + i * 7); scene.add(m); }
-  for (const s of [-1, 1]) { const sw = sh(new THREE.Mesh(new THREE.BoxGeometry(long ? w : 2.4, 0.6, long ? 2.4 : d), mat(P.sidewalk))); sw.position.set(long ? x : x + s * (w / 2 + 1.2), 0.3, long ? z + s * (d / 2 + 1.2) : z); scene.add(sw); }
+  for (const s of [-1, 1]) { const sw = sh(new THREE.Mesh(new THREE.BoxGeometry(long ? w : 2.4, 0.6, long ? 2.4 : d, long ? Math.ceil(w / 8) : 1, 1, long ? 1 : Math.ceil(d / 8)), mat(P.sidewalk))); sw.position.set(long ? x : x + s * (w / 2 + 1.2), 0.3, long ? z + s * (d / 2 + 1.2) : z); scene.add(sw); }
 }
 road(0, -8, 900, 9); road(0, 68, 900, 9); road(-60, -100, 9, 180); road(40, -100, 9, 180);
 

@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Rig3D Test</title>
+<script type="importmap">{"imports":{"three":"../node_modules/three/build/three.module.js","three/addons/":"../node_modules/three/examples/jsm/"}}</script></head><body style="margin:0">
+<script type="module">
+import * as THREE from 'three';
+import { Char3D, Dog3D, OUTFITS, walk, flail, standPose } from './rig3d.js';
+const r = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true }); r.setSize(1600, 800); r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.shadowMap.enabled = true; document.body.appendChild(r.domElement);
+const sc = new THREE.Scene(); sc.background = new THREE.Color(0xbfe6ff);
+sc.add(new THREE.HemisphereLight(0xfff8ef, 0xa9b6d6, 1.8)); const sun = new THREE.DirectionalLight(0xffe7c4, 3.1); sun.position.set(-3, 6, 4); sun.castShadow = true; sc.add(sun);
+const gr = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshStandardMaterial({ color: 0xf4e9da })); gr.rotation.x = -Math.PI / 2; gr.receiveShadow = true; sc.add(gr);
+const cast = [
+  [OUTFITS.curly, { ...standPose(0), mood: 'happy' }, 0], [OUTFITS.curly, { ...walk(4), mood: 'happy' }, Math.PI / 2], [OUTFITS.curly, { ...walk(9), mood: 'shock' }, Math.PI * 0.75],
+  [OUTFITS.jay, { ...flail(3), mood: 'scream', sweat: true }, 0.3], [OUTFITS.boss, { ...standPose(0), mood: 'smug', armR: [100, 10] }, -0.4], [OUTFITS.worker, { ...walk(2), mood: 'worried' }, Math.PI],
+];
+cast.forEach(([o, p, h], i) => { const c = new Char3D(sc, o, 2); c.pose(p); c.place(-5 + i * 2, 0, 0, 0); c.heading = h; c.root.rotation.y = h; });
+const d = new Dog3D(sc); d.pose({ t: 3, run: 1, bark: 0.6 }); d.place(5.5, 0, 1.2, 0); d.root.rotation.y = -0.8;
+const cam = new THREE.PerspectiveCamera(30, 2, 0.1, 100); cam.position.set(0, 2.2, 13); cam.lookAt(0, 1.0, 0);
+r.render(sc, cam); window.OUT = r.domElement.toDataURL('image/jpeg', 0.9);
+</script></body></html>

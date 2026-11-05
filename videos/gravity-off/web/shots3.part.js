@@ -4,7 +4,7 @@
 // Scenes: hook / chaos / world goes crazy / countdown / crash / coffee-drop twist
 // =====================================================================
 import TIM from './timings.js';
-import { Actor, OUTFITS, walk, flail, standPose, blinkAt } from './rig.js';
+import { Char3D as Actor, Dog3D, OUTFITS, walk, flail, standPose, blinkAt } from './rig3d.js';
 const FPS = 30;
 const cam = new THREE.PerspectiveCamera(30, W / H, 0.2, 3000);
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
@@ -33,40 +33,7 @@ const upT = (f) => (gravityOff(f) ? (f - K.boom) / FPS : 0); // seconds floating
 window.K = K;
 
 // ---------------- the dog (2D card, our style) ----------------
-class Dog {
-  constructor() { this.c = document.createElement('canvas'); this.c.width = 600; this.c.height = 500; this.g = this.c.getContext('2d');
-    this.tex = new THREE.CanvasTexture(this.c); this.tex.colorSpace = THREE.SRGBColorSpace;
-    this.mesh = new THREE.Mesh(new THREE.PlaneGeometry(1.0, 0.83).translate(0, 0.41, 0), new THREE.MeshBasicMaterial({ map: this.tex, transparent: true, alphaTest: 0.3, side: THREE.DoubleSide, toneMapped: false })); scene.add(this.mesh); }
-  pose({ t = 0, run = 0, bark = 0, look = 0, worried = false, legs = 0 } = {}) {
-    const g = this.g; g.clearRect(0, 0, 600, 500); g.lineJoin = 'round'; g.lineCap = 'round'; g.strokeStyle = INK;
-    const fs = (c, w = 12) => { g.fillStyle = c; g.fill(); g.lineWidth = w; g.stroke(); };
-    const sw = Math.sin(t * 0.6) * run, kick2 = legs ? Math.sin(t * 0.9) * 30 : 0;
-    // tail (wagging)
-    g.save(); g.translate(470, 250); g.rotate(-0.8 + Math.sin(t * 0.9) * 0.35); g.beginPath(); g.roundRect(-14, -90, 28, 100, 14); fs('#e8a35a', 11); g.restore();
-    // legs
-    for (const [x, ph] of [[200, 0], [260, 1.6], [390, 3.1], [440, 4.7]]) { const a = Math.sin(t * 0.6 + ph) * 0.45 * run + (legs ? Math.sin(t * 0.9 + ph) * 0.6 : 0);
-      g.save(); g.translate(x, 330); g.rotate(a); g.beginPath(); g.roundRect(-20, 0, 40, 110, 18); fs('#e8a35a', 11); g.beginPath(); g.ellipse(0, 112, 30, 18, 0, 0, 7); fs('#ffffff', 10); g.restore(); }
-    // body
-    g.beginPath(); g.ellipse(320, 290, 170, 95, 0, 0, 7); fs('#f2b96b', 13);
-    g.save(); g.beginPath(); g.ellipse(320, 290, 170, 95, 0, 0, 7); g.clip(); g.fillStyle = '#fff3e0'; g.beginPath(); g.ellipse(300, 360, 120, 60, 0, 0, 7); g.fill(); g.fillStyle = '#d98a48'; g.beginPath(); g.ellipse(380, 230, 70, 45, 0.3, 0, 7); g.fill(); g.restore();
-    g.beginPath(); g.ellipse(320, 290, 170, 95, 0, 0, 7); g.lineWidth = 13; g.stroke();
-    // collar + tag
-    g.beginPath(); g.roundRect(150, 205, 30, 120, 12); fs('#ff4f5e', 9); g.beginPath(); g.arc(170, 330, 16, 0, 7); fs('#ffd166', 8);
-    // head
-    g.save(); g.translate(150, 200 + look * 20); g.rotate(look * 0.35);
-    g.beginPath(); g.ellipse(-40, 0, 105, 92, 0, 0, 7); fs('#f2b96b', 13);
-    g.beginPath(); g.ellipse(-120, 30, 60, 42, 0, 0, 7); fs('#fff3e0', 11); // muzzle
-    g.beginPath(); g.ellipse(-160, 12, 22, 16, 0, 0, 7); fs(INK, 4); // nose
-    for (const [x, r] of [[30, 0.5], [-90, -0.4]]) { g.beginPath(); g.ellipse(x, -60, 34, 66, r, 0, 7); fs('#c57a3e', 11); } // ears
-    g.fillStyle = '#fff'; g.beginPath(); g.ellipse(-50, -18, worried ? 26 : 20, worried ? 30 : 24, 0, 0, 7); g.fill(); g.lineWidth = 8; g.stroke();
-    g.fillStyle = INK; g.beginPath(); g.arc(-54 + (look ? 0 : -4), -14 + look * 10, 10, 0, 7); g.fill();
-    if (worried) { g.lineWidth = 9; g.beginPath(); g.moveTo(-82, -58); g.lineTo(-30, -48); g.stroke(); }
-    g.lineWidth = 9; if (bark > 0.2) { g.beginPath(); g.ellipse(-118, 62, 30, 22 * bark, 0, 0, 7); g.fillStyle = '#6a1f33'; g.fill(); g.stroke(); g.fillStyle = '#ff7a8a'; g.beginPath(); g.ellipse(-110, 74, 18, 10, 0, 0, 7); g.fill(); }
-    else { g.beginPath(); g.moveTo(-150, 52); g.quadraticCurveTo(-120, 70, -95, 50); g.stroke(); g.fillStyle = '#ff7a8a'; g.beginPath(); g.ellipse(-112, 72, 14, 18, 0, 0, Math.PI); g.fill(); g.stroke(); }
-    g.restore(); this.tex.needsUpdate = true; }
-  face(c, spin = 0) { this.mesh.lookAt(c.position.x, this.mesh.position.y, c.position.z); if (spin) this.mesh.rotateZ(spin); }
-}
-const dog = new Dog();
+const dog = new Dog3D(scene);
 const ball = sh(new THREE.Mesh(new THREE.SphereGeometry(0.12, 18, 12), mat(0xc6f03a))); scene.add(ball);
 
 // ---------------- cast ----------------
@@ -79,7 +46,7 @@ const shopper = new Actor(scene, OUTFITS.p2, 1.85);
 const passenger = new Actor(scene, OUTFITS.p3, 1.9);
 const extras = ['jay', 'p1', 'p2', 'p3', 'mia'].map((o, i) => { const a = new Actor(scene, OUTFITS[o], 1.8 + hash(i) * 0.2); a.k = i; return a; });
 const ALL = [curly, mia, boss, worker, rider, shopper, passenger, ...extras];
-const hide = () => { for (const a of ALL) { a.mesh.visible = false; a.blob.visible = false; } dog.mesh.visible = false; };
+const hide = () => { for (const a of ALL) { a.mesh.visible = false; a.blob.visible = false; a.heading = null; } dog.mesh.visible = false; dog.blob.visible = false; };
 const show = (a) => { a.mesh.visible = true; a.blob.visible = true; };
 
 // ---------------- props ----------------
@@ -238,7 +205,7 @@ function cupAt(actor, f, mode) { const hd = actor.hands?.handL || [176, 735]; co
 // ---------------- shots ----------------
 const S = [];
 const shot = (id, a, b, run) => S.push({ id, a, b, run });
-const streetCurly = (f, mood, extra = {}) => { const x = -1 + Math.min(f, K.boom) * 0.018; const r = rise(f, 0.5, 3);
+const streetCurly = (f, mood, extra = {}) => { curly.heading = Math.PI / 2; const x = -1 + Math.min(f, K.boom) * 0.018; const r = rise(f, 0.5, 3);
   curly.pose({ ...(f < K.boom ? walk(f) : flail(f * 0.5)), mood, armL: [20, 70], blink: f < K.boom && blinkAt(f), ...extra }); curly.place(x, GY + r, 3.0, GY); show(curly); return x; };
 // SCENE 1 — the hook
 shot('H1', 0, K.pull, (f) => { cityState(f); const x = streetCurly(f, f < K.freeze ? 'happy' : 'shock', f >= K.boom ? { legL: [-10, 30, 0.4], legR: [10, 30, 0.4] } : {});
@@ -271,7 +238,7 @@ shot('C3', K.real + CUT, K.real + CUT * 2, (f) => { // shopping bags drop, groce
   groceries(f, V(4, GY + 0.3, 3.1), K.real + CUT); });
 shot('C4', K.real + CUT * 2, K.real + CUT * 3, (f) => { // the dog floats upside down, barking at nothing
   dog.mesh.visible = true; dog.pose({ t: f, legs: 1, bark: 0.5 + 0.5 * Math.sin(f * 0.7) }); dog.mesh.position.set(-3, GY + 1.6 + Math.sin(f * 0.08) * 0.1, 2.6);
-  dog.mesh.position.y += 0.83; LOOK(V(-2.2, 2.5, 5.6), V(-3, GY + 2.0, 2.6), 34, -0.08); dog.face(cam, Math.PI + Math.sin(f * 0.05) * 0.2); cityState(f); FX.focus = 2.7; });
+  dog.mesh.position.y += 0.62; LOOK(V(-2.2, 2.5, 5.6), V(-3, GY + 2.0, 2.6), 34, -0.08); dog.face(cam, Math.PI + Math.sin(f * 0.05) * 0.2); cityState(f); FX.focus = 2.7; });
 shot('C5', K.real + CUT * 3, K.real + CUT * 4, (f) => { // a bicycle rises, the rider hangs on to the handlebars
   cityState(f); const t = (f - K.real - CUT * 3) / CUT; const by = GY + 1.2 + t * 0.8; bike.position.set(10, by, 3.0); bike.rotation.set(0, -0.4, 0.3 + t * 0.4);
   rider.pose({ ...flail(f * 0.4), mood: 'scream', armL: [150, 0], armR: [150, 0], legL: [-30, 40, 0.3], legR: [30, 30, 0.3] }); rider.place(10.2, by - 1.0 + t * 0.2, 3.1, GY); show(rider);
@@ -366,6 +333,7 @@ window.renderFrame = (f) => {
   goods.forEach((g) => { g.position.copy(g.u.home); g.rotation.set(0, 0, 0); g.visible = true; }); carts.forEach((c) => { c.position.copy(c.u.home); c.rotation.set(0, 0, 0); });
   if (f < K.boom) { cone.visible = true; cone.position.set(-16.6, GY, 3.2); cone.rotation.set(0, 0, 0); }
   const s = shotAt(f); s.run(f);
+  if (dog.mesh.visible) { dog.blob.visible = true; dog.blob.position.set(dog.root.position.x, GY + 0.02, dog.root.position.z); }
   renderer.setRenderTarget(rt); renderer.render(scene, cam);
   const u = dofMat.uniforms; u.tC.value = rt.texture; u.tD.value = rt.depthTexture; u.focus.value = FX.focus; u.amt.value = FX.amt; u.sat.value = FX.sat; u.flash.value = FX.flash; u.dark.value = FX.dark;
   renderer.setRenderTarget(null); renderer.render(quad, qcam);
